@@ -1,0 +1,6 @@
+use Test;
+use Calendar::Liturgical::Christian;
+
+pass "replace me";
+
+done-testing;
