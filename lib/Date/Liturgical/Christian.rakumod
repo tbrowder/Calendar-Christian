@@ -29,6 +29,7 @@ submethod TWEAK {
     my $y    = self.year;
     my $m    = self.month;
     my $d    = self.day;
+    my $dow  = self.day-of-week;
 
     $!Easter = Easter($y);
 
@@ -68,23 +69,27 @@ submethod TWEAK {
         # Lent *and* begins the Easter season. I'm not sure how. Maybe it's
         # in both? Maybe the daytime is in Lent and the night is in Easter?
     }
-    elsif $easter-point >= 0 && $easter-point <= 49 {
+    #elsif $easter-point >= 0 && $easter-point <= 49 {
+    elsif 0 <= $easter-point <= 49 {
         # yes, this is correct: Pentecost itself is in Easter season;
         # Pentecost season actually begins on the day after Pentecost.
         # Its proper name is "The Season After Pentecost".
         $!season = 'Easter';
         $weekno = $easter-point/7;
     }
-    elsif $christmas-point >= $advent-sunday && $christmas-point <= -1 {
+    #elsif $christmas-point >= $advent-sunday && $christmas-point <= -1 {
+    elsif $advent-sunday <= $christmas-point <= -1 {
         $!season = 'Advent';
         $weekno = 1+($christmas-point-$advent-sunday)/7;
     }
-    elsif $christmas-point >= 0 && $christmas-point <= 11 {
+    #elsif $christmas-point >= 0 && $christmas-point <= 11 {
+    elsif 0 <= $christmas-point <= 11 {
         # The Twelve Days of Christmas.
         $!season = 'Christmas';
         $weekno = 1+$christmas-point/7;
     }
-    elsif $christmas-point >= 12 && $easter-point <= -47 {
+    #elsif $christmas-point >= 12 && $easter-point <= -47 {
+    elsif 12 <= $easter-point <= -47 {
         $!season = 'Epiphany';
         $weekno = 1+($christmas-point-12)/7;
     }
@@ -95,15 +100,19 @@ submethod TWEAK {
 
     # Now, look for feasts.
 
-    my $feast-from-Easter    = %feasts{$easter-point};
-    my $feast-from-Christmas = %feasts{10000+100*$m+$d};
+    my $feast-from-Easter    = %feasts{$easter-point}:exists ?? %feasts{$easter-point} !! 0;
+    my $feast-from-Christmas = %feasts{10000+100*$m+$d}:exists ?? %feasts{10000+100*$m+$d} !! 0;
 
-    push @possibles, $feast-from-Easter if $feast-from-Easter;
-    push @possibles, $feast-from-Christmas if $feast-from-Christmas;
+    @possibles.push($feast-from-Easter) if $feast-from-Easter;
+    @possibles.push($feast-from-Christmas) if $feast-from-Christmas;
+
+    if 0 and @possibles {
+        note "DEBUG: dumping \@possibles array:";
+        note @possibles.raku;
+    }
 
     =begin comment
     # Maybe transferred from yesterday.
-
     unless %opts{transferred} { # don't go round infinitely
         my ($yestery, $yesterm, $yesterd) = Add_Delta_Days(1, 1, 1, $days-2);
         my $transferred = $class->new(
@@ -119,64 +128,80 @@ submethod TWEAK {
             push @possibles, $transferred;
         }
     }
+    =end comment
 
     # Maybe a Sunday.
+    @possibles.push({ prec=>5, name=>"$!season $weekno" })
+        #if Day_of_Week($y, $m, $d)==7;
+        if $dow == 7;
 
-    push @possibles, { prec=>5, name=>"$season $weekno" }
-        if Day_of_Week($y, $m, $d)==7;
 
     # So, which event takes priority?
 
-    @possibles = sort { $b->{prec} <=> $a->{prec} } @possibles;
+    #@possibles = sort { $b->{prec} <=> $a->{prec} } @possibles;
+    
+    # TODO fix this:
+    # sort highest to lowest
+    #@possibles = sort { $b->{prec} <=> $a->{prec} } @possibles;
 
+    =begin comment
     if %opts{transferred} {
         # If two feasts coincided today, we were asked to find the one
         # which got transferred.  But Sundays don't get transferred!
         return undef if @possibles[1] && @possibles[1]->{prec}==5;
         return @possibles[1];
     }
+    =end comment
 
-    my $result = ${dclone(\($possibles[0]))};
+    #my $result = ${dclone(\($possibles[0]))};
+    my $result = @possibles[0];
+
     $result = { name=>'', prec=>1 } unless $result;
-    $result = { %opts, %$result, season=>$season, weekno=>$weekno };
+    # TODO fix this:
+    #$result = { %opts, %$result, season=>$!season, weekno=>$weekno };
+    $result<season> = $!season;
+    $result<weekno> = $weekno;
 
-    if %opts{rose} {
-        my %rose_days = [ 'Advent 2'=>1, 'Lent 3'=>1 ];
-        $result->{colour} = 'rose' if %rose_days{$result->{name}};
+    #if %opts{rose} {
+    if $!rose {
+        my %rose-days = [ 'Advent 2' => 1, 'Lent 3' => 1 ];
+        #$result->{colour} = 'rose' if %rose_days{$result->{name}};
+        $result<color> = 'rose' if %rose-days{$result<name>:exists} and %rose-days{$result<name>};
     }
 
-    if (!defined $result->{colour}) {
-        if ($result->{prec}>2 && $result->{prec}!=5) {
+    # TODO fix this
+    if !defined $result<color> {
+        if $result<prec> > 2 && $result<prec> != 5 {
             # feasts are generally white,
             # unless marked differently.
             # But martyrs are red, and Marian
             # feasts *might* be blue.
-            if ($result->{martyr}) {
-                $result->{colour} = 'red';
+            if $result<martyr> {
+                $result<colour> = 'red';
             }
-            elsif ($opts{bvm_blue} && $result->{bvm}) {
-                $result->{colour} = 'blue';
+            elsif $!bvm-blue && $result<bvm> {
+                $result<color> = 'blue';
             }
             else {
-                $result->{colour} = 'white';
+                $result<color> = 'white';
             }
         }
         else {
             # Not a feast day.
-            if ($season eq 'Lent') {
-                $result->{colour} = 'purple';
+            if $!season eq 'Lent' {
+                $result<color> = 'purple';
             }
-            elsif ($season eq 'Advent') {
-                if ($opts{advent_blue}) {
-                    $result->{colour} = 'blue';
+            elsif $!season eq 'Advent' {
+                if $!advent-blue {
+                    $result<color> = 'blue';
                 }
                 else {
-                    $result->{colour} = 'purple';
+                    $result<color> = 'purple';
                 }
             }
             else {
                 # The great fallback:
-                $result->{colour} = 'green';
+                $result<color> = 'green';
             }
         }
     }
@@ -184,17 +209,26 @@ submethod TWEAK {
     # Two special cases for Christmas-based festivals which depend on
     # the day of the week.
 
-    if ($result->{prec} == 5) { # An ordinary Sunday
-        if ($christmas_point == $advent_sunday) {
-            $result->{name} = 'Advent Sunday';
-            $result->{colour} = 'white';
+    if $result<prec> == 5 { # An ordinary Sunday
+        if $christmas-point == $advent-sunday {
+            $result<name> = 'Advent Sunday';
+            $result<color> = 'white';
         }
-        elsif ($christmas_point == $advent_sunday-7) {
-            $result->{name} = 'Christ the King';
-            $result->{colour} = 'white';
+        elsif $christmas-point == $advent-sunday -7 {
+            $result<name> = 'Christ the King';
+            $result<color> = 'white';
         }
     }
-    =end comment
+
+    if  0 {
+        note "DEBUG: dumping var \$result hash:";
+        #note $result.raku;
+        note %($result).raku;
+    }
+
+    for %($result).kv -> $k, $v {
+        note "DEBUG: result key '$k' => '$v'"
+    }
 }
 
 
