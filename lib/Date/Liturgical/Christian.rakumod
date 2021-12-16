@@ -1,5 +1,5 @@
 
-unit class Date::Liturgical::Christian is Date is export;
+unit class Date::Liturgical::Christian is Date;
 # a child class of Date
 
 use Date::Liturgical::Christian::Constants :feasts;
@@ -8,7 +8,7 @@ multi method new($year, $month, $day, |c) {
     # Convert the input values to a Date object. Following code thanks
     # to @lizmat on IRC #raku, 2021-11-18, 06:08
     # (and on IRC #raku, 2021-03-29, 11:50)
-    self.Date::new($year, $month, $day);
+    self.Date::new($year, $month, $day, |c);
 }
 
 # constructor options
@@ -19,10 +19,10 @@ has $.rose        = 0;
 
 has Date $!Easter;
 
-has $!color;
-has $!season;
-has $!name;
-has $!bvm;
+has $.color  = '';
+has $.season = '';
+has $.name   = '';
+has $.bvm    = '';
 
 submethod TWEAK {
     my $days = self.day-of-year;
@@ -56,13 +56,13 @@ submethod TWEAK {
     }
 
     # First, figure out the season.
-    my $season;
     my $weekno;
 
-    my Int $advent-sunday = Advent-Sunday($y).day-of-year;
+    my $advent-sunday = Advent-Sunday($y).day-of-year;
 
-    if $easter-point > -47 && $easter-point < 0 {
-        $season = 'Lent';
+    #if $easter-point > -47 && $easter-point < 0 {
+    if  -47 < $easter-point < 0 {
+        $!season = 'Lent';
         $weekno = ($easter-point+50)/7;
         # FIXME: The ECUSA calendar seems to indicate that Easter Eve ends
         # Lent *and* begins the Easter season. I'm not sure how. Maybe it's
@@ -72,24 +72,24 @@ submethod TWEAK {
         # yes, this is correct: Pentecost itself is in Easter season;
         # Pentecost season actually begins on the day after Pentecost.
         # Its proper name is "The Season After Pentecost".
-        $season = 'Easter';
+        $!season = 'Easter';
         $weekno = $easter-point/7;
     }
     elsif $christmas-point >= $advent-sunday && $christmas-point <= -1 {
-        $season = 'Advent';
+        $!season = 'Advent';
         $weekno = 1+($christmas-point-$advent-sunday)/7;
     }
     elsif $christmas-point >= 0 && $christmas-point <= 11 {
         # The Twelve Days of Christmas.
-        $season = 'Christmas';
+        $!season = 'Christmas';
         $weekno = 1+$christmas-point/7;
     }
     elsif $christmas-point >= 12 && $easter-point <= -47 {
-        $season = 'Epiphany';
+        $!season = 'Epiphany';
         $weekno = 1+($christmas-point-12)/7;
     }
     else {
-        $season = 'Pentecost';
+        $!season = 'Pentecost';
         $weekno = 1+($easter-point-49)/7;
     }
 

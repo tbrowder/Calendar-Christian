@@ -1,23 +1,26 @@
 {
   "auth": "zef:tbrowder",
   "authors": [
-    "Tom Browder"
+    "Tom Browder <tbrowder@acm.org>",
+    "Thomas Thurman <thomas@thurman.org.uk>"
   ],
   "build-depends": [
   ],
   "depends": [
   ],
-  "description": "blah blah blah",
+  "description": "calendar of the church year",
   "license": "Artistic-2.0",
-  "name": "Calendar::Liturgical::Christian",
+  "name": "Date::Liturgical::Christian",
   "perl": "6.d",
   "provides": {
-    "Calendar::Liturgical::Christian": "lib/Calendar/Liturgical/Christian.rakumod"
+    "Date::Liturgical::Christian": "lib/Date/Liturgical/Christian.rakumod",
+    "Date::Liturgical::Christian::Constants": "lib/Date/Liturgical/Christian/Constants.rakumod"
   },
   "resources": [
   ],
-  "source-url": "",
+  "source-url": "https://github.com/tbrowder/Date-Liturgical-Christian.git",
   "tags": [
+    "Christian calendar liturgical liturgy"
   ],
   "test-depends": [
   ],
