@@ -188,50 +188,50 @@ submethod TWEAK {
 
     # TODO fix this:
     #$result = { %opts, %$result, season=>$!season, weekno=>$weekno };
-    %result<season> = $!season;
-    %result<weekno> = $weekno;
+    $result<season> = $!season;
+    $result<weekno> = $weekno;
 
     #if %opts{rose} {
     if $!rose {
         my %rose-days = [ 'Advent 2' => 1, 'Lent 3' => 1 ];
         #$result->{colour} = 'rose' if %rose_days{$result->{name}};
-        %result<color> = 'rose' if %rose-days{%result<name>:exists} and %rose-days{%result<name>};
+        $result<color> = 'rose' if %rose-days{$result<name>:exists} and %rose-days{$result<name>};
     }
 
     # TODO fix this
     #if !defined $result<color> {
-    unless %result<color>:exists {
-        if %result<prec> > 2 && %result<prec> != 5 {
+    unless $result<color>:exists {
+        if $result<prec> > 2 && $result<prec> != 5 {
             # Feasts are generally white,
             # unless marked differently.
             # But martyrs are red, and Marian
             # feasts *might* be blue.
-            if %result<martyr> {
-                %result<color> = 'red';
+            if $result<martyr> {
+                $result<color> = 'red';
             }
-            elsif $!bvm-blue && %result<bvm> {
-                %result<color> = 'blue';
+            elsif $!bvm-blue && $result<bvm> {
+                $result<color> = 'blue';
             }
             else {
-                %result<color> = 'white';
+                $result<color> = 'white';
             }
         }
         else {
             # Not a feast day.
             if $!season eq 'Lent' {
-                %result<color> = 'purple';
+                $result<color> = 'purple';
             }
             elsif $!season eq 'Advent' {
                 if $!advent-blue {
-                    %result<color> = 'blue';
+                    $result<color> = 'blue';
                 }
                 else {
-                    %result<color> = 'purple';
+                    $result<color> = 'purple';
                 }
             }
             else {
                 # The great fallback:
-                %result<color> = 'green';
+                $result<color> = 'green';
             }
         }
     }
@@ -239,24 +239,24 @@ submethod TWEAK {
     # Two special cases for Christmas-based festivals which depend on
     # the day of the week.
 
-    if %result<prec> == 5 { # An ordinary Sunday
+    if $result<prec> == 5 { # An ordinary Sunday
         if $christmas-point == $advent-sunday {
-            %result<name> = 'Advent Sunday';
-            %result<color> = 'white';
+            $result<name> = 'Advent Sunday';
+            $result<color> = 'white';
         }
         elsif $christmas-point == $advent-sunday -7 {
-            %result<name> = 'Christ the King';
-            %result<color> = 'white';
+            $result<name> = 'Christ the King';
+            $result<color> = 'white';
         }
     }
 
     if  $debug {
         note "DEBUG: dumping var \$result hash:";
         #note $result.raku;
-        note %result.raku;
+        note $result.raku;
     }
 
-    for %result.kv -> $k, $v {
+    for $result.kv -> $k, $v {
         note "DEBUG: result key '$k' => '$v'" if $debug;
         given $k {
             when $k eq 'color'  { $!color  = $v }
@@ -278,58 +278,45 @@ submethod TWEAK {
 }
 
 
-# This returns the date easter occurs on for a given year as a Date
-# object).  This is from the Calendar FAQ.  Taken from Date::Manip.
-=begin comment
-sub Easter($y --> Date) {
-    my $c = $y/100;
-    my $g = $y % 19;
-    my $k = ($c-17)/25;
-    my $i = ($c - $c/4 - ($c-$k)/3 + 19*$g + 15) % 30;
-    $i     = $i - ($i/28)*(1 - ($i/28)*(29/($i+1))*((21-$g)/11));
-    my $j = ($y + $y/4 + $i + 2 - $c + $c/4) % 7;
-    my $l = $i-$j;
-    my $m = 3 + ($l+40)/44;
-    my $d = $l + 28 - 31*($m/4);
-    Date.new($y, $m, $d)
-}
-=end comment
-
+# This returns the date Easter occurs on for a given year as a Date
+# object).
 # Coded directly from the Calender FAQ
 # (https://tondering.dk/claus/calendar.html)
-sub Easter($y, :$orthodox? --> Date) {
-    return Easter-orthodox($y) if $orthodox;
+# Easter in the Gregorian calendar
+sub Easter(Int \year --> Date) is export {
 
-    my $c = $y/100;
-    my $g = $y % 19;
-    my $k = ($c-17)/25;
-    my $i = ($c - $c/4 - ($c-$k)/3 + 19*$g + 15) % 30;
-    $i     = $i - ($i/28)*(1 - ($i/28)*(29/($i+1))*((21-$g)/11));
-    my $j = ($y + $y/4 + $i + 2 - $c + $c/4) % 7;
-    my $l = $i-$j;
-    my $m = 3 + ($l+40)/44;
-    my $d = $l + 28 - 31*($m/4);
-    Date.new($y, $m, $d)
+    my \G = year mod 19;
+
+    my \C = year div 100;
+
+    my \H = (C - (C div 4) - (8*C + 13) div 25 + 19*G + 15) mod 30;
+
+    my \I = H - (H div 28) * (1 - (29 div (H + 1)) * (21 - G) div 11);
+
+    my \J = (year + year div 4 + I + 2 - C + C div 4) mod 7;
+
+    my \L = I - J;
+
+    my \EasterMonth = 3 + (L + 40) div 44;
+
+    my \EasterDay = L + 28 - 31 * (EasterMonth div 4);
+    Date.new(year, EasterMonth, EasterDay)
 }
 
-# Coded directly from the Calender FAQ
-# (https://tondering.dk/claus/calendar.html)
-sub Easter-orthodox($y --> Date) {
-}
-
-sub Advent-Sunday($y --> Date) {
-    my $Christmas-Day = Date.new($y,12,25);
-    my $cd = $Christmas-Day;
+sub Advent-Sunday($y --> Date) is export {
+    my \Christmas-Day = Date.new($y,12,25);
+    my $cd = Christmas-Day;
     # the original is marked as erroneous in an issue
     #return -(Day_of_Week($y,12,25) + 4*7);
 
     my $cdow = $cd.day-of-week;
     # Advent Sunday is the 4th Sunday before Christmas
     my $days-before = $cdow + 4*7;
-    $cd.earlier(:day($days-before));
+    #$cd.earlier(:day($days-before));
+    $cd - $days-before;
 }
 
-sub index-rel-christmas($month, $day) {
+sub index-rel-christmas($month, $day) is export {
     # Dates relative to Christmas are encoded as 10000 + 100*m + d
     # for simplicity.
     10000 + 100*$month + $day
