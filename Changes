@@ -1,4 +1,5 @@
 Revision history for DateTime-Calendar-Liturgical-Christian
 
 {{$NEXT}}
+    - 'colour' changed to 'color'
     - Initial version

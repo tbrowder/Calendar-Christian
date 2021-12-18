@@ -17,7 +17,9 @@ DESCRIPTION
 
 **Date::Liturgical::Christian** is a Raku port of the Perl CPAN module *DateTime::Calendar::Liturgical::Christian*. It is a child class of the Raku Date class.
 
-This module will return the name, season, week number and liturgical color for any day in the Gregorian calendar. It will eventually support the liturgical calendars of several churches (hopefully at least Anglican, Lutheran, Orthodox and Roman Catholic). At present it only knows the calendar for the Episcopal Church of the USA.
+**IMPORTANT NOTE** The Perl module is designed for the ECUSA tradition, but this Raku module is designed only for the United Methodist Church (UMC) tradition. The ECUSA tradition in this module cannot be supported until this author has some questions answered by the original Perl author or until he has access to authoritative documentation from the ECUSA.
+
+This module will return the name, season, week number and liturgical color for any day in the Gregorian calendar. It may eventually support the liturgical calendars of other churches (but only if their is any interest shown by any users). At present it only knows the calendar for the United Methodist Church.
 
 If you find bugs, or if you have information on the calendar of another liturgical church, please file an issue or contact the author directly.
 
@@ -45,17 +47,7 @@ This constructs a DateTime::Calendar::Liturgical::Christian object. It takes a s
 
 **day** (required). The day of the month.
 
-**tradition** (recommended). The tradition to use. Currently only `ECUSA` is known.
-
-**advent-blue**. It is currently popular in ECUSA to color Advent blue, instead of purple, which will happen if this option is set to 1.
-
-**bvm-blue**. Some people mark feasts of the Blessed Virgin Mary, the mother of Jesus, with blue instead of white. This will happen if this option is set to 1. To tell the difference between this blue and `advent_blue`'s blue, see the `bvm` method, below.
-
-**rose**. Some people color the middle Sundays of Lent and Advent pink, or "rose", instead of purple. This will happen if this option is set to 1.
-
-  * from_object ( OBJECT )
-
-Constructs a DateTime::Calendar::Liturgical::Christian object from an object of any other DateTime class.
+**tradition** (recommended). The tradition to use. Currently only `UMC` is known.
 
 METHODS
 =======
@@ -72,14 +64,6 @@ Returns the season.
 
 Returns the color of the day. Can be `red`, `green`, `white`, or `purple`, or `blue` or `rose` if the relevant options are set.
 
-  * color
-
-Alternative spelling of `color`.
-
-  * bvm
-
-Returns true if the current day is a feast of the Blessed Virgin Mary. This can be used to distinguish Advent blue from Marian blue.
-
   * day
 
 Returns the day number which was used to construct the object.
@@ -92,20 +76,19 @@ Returns the month number which was used to construct the object.
 
 Returns the year number which was used to construct the object.
 
-back
-====
-
-
-
 AUTHORS
 =======
 
-Tom Browder <tbrowder@acm.org> Thomas Thurman <thomas@thurman.org.uk> [Perl]
+  * Tom Browder <tbrowder@acm.org>
+
+  * Thomas Thurman <thomas@thurman.org.uk> [Perl]
 
 COPYRIGHT AND LICENSE
 =====================
 
-Copyright © 2021 Tom Browder Copyright © 2006 Thomas Thurman
+  * Copyright © 2021 Tom Browder
+
+  * Copyright © 2006 Thomas Thurman
 
 This library is free software; you may redistribute it or modify it under the Artistic License 2.0.
 

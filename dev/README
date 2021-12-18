@@ -1,0 +1,10 @@
+The following Perl modules have been downloaded for easy
+access to their code which has been incorporated into
+this module:
+
++ Date::Easter
+
++ DateTime::Calendar::Liturgical::Christian
+
+File .gitignore has entries for them so they are not
+under version control.
