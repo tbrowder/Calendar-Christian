@@ -10,7 +10,6 @@ use Test;
 use Date::Liturgical::Christian;
 use Text::Utils :strip-comment;
 
-
 my $data-umc;   # defined in BEGIN block at eof
 my $data-ecusa; # defined in BEGIN block at eof
 for $data-umc.lines -> $line is copy {

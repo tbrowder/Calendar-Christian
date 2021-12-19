@@ -284,36 +284,56 @@ submethod TWEAK {
 # (https://tondering.dk/claus/calendar.html)
 # Easter in the Gregorian calendar
 sub Easter(Int \year --> Date) is export {
-
     my \G = year mod 19;
-
     my \C = year div 100;
-
     my \H = (C - (C div 4) - (8*C + 13) div 25 + 19*G + 15) mod 30;
-
     my \I = H - (H div 28) * (1 - (29 div (H + 1)) * (21 - G) div 11);
-
     my \J = (year + year div 4 + I + 2 - C + C div 4) mod 7;
-
     my \L = I - J;
-
     my \EasterMonth = 3 + (L + 40) div 44;
-
     my \EasterDay = L + 28 - 31 * (EasterMonth div 4);
     Date.new(year, EasterMonth, EasterDay)
 }
 
-sub Advent-Sunday($y --> Date) is export {
-    my \Christmas-Day = Date.new($y,12,25);
-    my $cd = Christmas-Day;
-    # the original is marked as erroneous in an issue
-    #return -(Day_of_Week($y,12,25) + 4*7);
+sub Advent-Sunday2($y --> Date) is export {
+    # Method 2: Find the Sunday following the
+    # last Thursday in November.
+    # Source: Malcolm Heath <malcolm@indeterminate.net>
+    my $d = Date.new($y, 11, 30); # last day of November
+    my $dow = $d.day-of-week;
+    note "DEBUG start: dow = $dow" if $debug;
+    while $dow != 4 {
+        $d -= 1;
+        $dow = $d.day-of-week;
+        note "DEBUG: dow = $dow" if $debug;
+    }
+    # found last Thursday in November
+    # following Sunday is 3 days hence
+    $d += 3
+}
 
-    my $cdow = $cd.day-of-week;
-    # Advent Sunday is the 4th Sunday before Christmas
-    my $days-before = $cdow + 4*7;
-    #$cd.earlier(:day($days-before));
-    $cd - $days-before;
+sub Advent-Sunday($y --> Date) is export {
+    # Method 1: Find the Sunday closest to November 30
+    # (The Feast of St. Andrew). If November 30 is a Sunday,
+    # St. Andrew gets moved.
+    # Source: Malcolm Heath <malcolm@indeterminate.net>
+    my $fsa = Date.new($y, 11, 30);
+    my $fsa-dow = $fsa.day-of-week; # 1..7 (Mon..Sun)
+    # sun mon tue wed thu fri sat sun
+    #  7   1   2   3   4   5   6   7
+    #  0   1   2   3  -3  -2  -1   0
+    if $fsa-dow == 7 {
+        # bingo!
+        return $fsa
+    }
+    elsif $fsa-dow < 4 {
+        # closest to previous Sunday
+        return $fsa - $fsa-dow
+    }
+    else {
+        # closest to following Sunday
+        return $fsa + (7 - $fsa-dow)
+    }
 }
 
 sub index-rel-christmas($month, $day) is export {
