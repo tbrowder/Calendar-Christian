@@ -295,6 +295,28 @@ sub Easter(Int \year --> Date) is export {
     Date.new(year, EasterMonth, EasterDay)
 }
 
+sub Advent-Sunday3($y --> Date) is export {
+    # Method 3: Find the 4th Sunday before
+    # Christmas, not counting the Sunday
+    # which may be Christms.
+    # Note this is the method attempted by
+    # the Perl author but it was wrong as
+    # noted in the bug report on the CPAN site.
+    my $d = Date.new($y, 12, 25); # Christmas
+    my $dow = $d.day-of-week;
+    if $dow == 7 {
+        # Christmas is on Sunday, count 28 days back.
+        return $d - 28
+    }
+    else {
+        # find prev Sunday, count 21 days back from that
+        # sun mon tue wed thu fri sat sun
+        #  7   1   2   3   4   5   6   7
+        #  0   1   2   3  -3  -2  -1   0
+        return $d - $dow - 21
+    }
+}
+
 sub Advent-Sunday2($y --> Date) is export {
     # Method 2: Find the Sunday following the
     # last Thursday in November.

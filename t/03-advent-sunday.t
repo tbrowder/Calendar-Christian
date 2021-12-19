@@ -34,7 +34,7 @@ my $advents = q:to/HERE/;
 HERE
 
 my $n = $advents.lines.elems;
-my $nt = $n * 4;
+my $nt = $n * 6;
 plan $nt;
 
 for $advents.lines -> $line is copy {
@@ -49,5 +49,9 @@ for $advents.lines -> $line is copy {
     my $b = Advent-Sunday2 $t.year;
     is $b.month, $t.month;
     is $b.day, $t.day;
+    
+    my $c = Advent-Sunday3 $t.year;
+    is $c.month, $t.month;
+    is $c.day, $t.day;
 }
     
