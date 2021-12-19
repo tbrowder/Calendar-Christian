@@ -2,8 +2,6 @@ use Test;
 use Date::Liturgical::Christian;
 use Text::Utils :strip-comment;
 
-plan 8;
-
 my ($d, $e);
 
 # original test data had wrong date for first Advent Sunday!
