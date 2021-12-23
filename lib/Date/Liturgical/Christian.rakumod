@@ -277,10 +277,8 @@ submethod TWEAK {
     }
 }
 
-
 # This returns the date Easter occurs on for a given year as a Date
-# object).
-# Coded directly from the Calender FAQ
+# object.  Coded directly from the Calender FAQ
 # (https://tondering.dk/claus/calendar.html)
 # Easter in the Gregorian calendar
 sub Easter(Int \year --> Date) is export {
@@ -298,7 +296,7 @@ sub Easter(Int \year --> Date) is export {
 sub Advent-Sunday3($y --> Date) is export {
     # Method 3: Find the 4th Sunday before
     # Christmas, not counting the Sunday
-    # which may be Christms.
+    # which may be Christmas.
     # Note this is the method attempted by
     # the Perl author but it was wrong as
     # noted in the bug report on the CPAN site.
@@ -358,8 +356,18 @@ sub Advent-Sunday($y --> Date) is export {
     }
 }
 
-sub index-rel-christmas($month, $day) is export {
-    # Dates relative to Christmas are encoded as 10000 + 100*m + d
+sub to-index-rel-christmas($month, $day) is export {
+    # Dates relative to Christmas are encoded to the index as 10000 + 100*m + d
     # for simplicity.
+    # Example: m=1, d=1 => 10000 + 100*1 + 1 = 10000+100+1 = 10101
+    # Example: m=12, d=31 => 10000 + 100*12 + 1 = 10000+1200+31 = 11231
     10000 + 100*$month + $day
+}
+
+sub from-index-rel-christmas($index --> List) is export {
+    # Dates relative to Christmas are decoded from 10000 + 100*m + d.
+    my $md = $index - 10000;
+    my $m = $md div 100;
+    my $d = $md mod 100;
+    $m, $d
 }
