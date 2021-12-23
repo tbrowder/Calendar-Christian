@@ -15,7 +15,7 @@
   "perl": "6.d",
   "provides": {
     "Date::Liturgical::Christian": "lib/Date/Liturgical/Christian.rakumod",
-    "Date::Liturgical::Christian::Constants": "lib/Date/Liturgical/Christian/Constants.rakumod"
+    "Date::Liturgical::Christian::Feasts": "lib/Date/Liturgical/Christian/Feasts.rakumod"
   },
   "resources": [
   ],

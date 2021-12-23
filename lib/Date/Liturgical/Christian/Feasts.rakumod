@@ -1,6 +1,6 @@
-unit class Date::Liturgical::Christian::Constants;
+unit class Date::Liturgical::Christian::Feasts;
 
-our constant %feasts-UMC = [
+our constant %feasts-UMC is export = [
     # Derived from the original ECUSA %feasts, from UMC documents,
     # and assistance from the Reverend Pam Avery.
 
@@ -40,7 +40,7 @@ our constant %feasts-UMC = [
 
 ];
 
-our constant %feasts-ECUSA = [
+our constant %feasts-ECUSA is export = [
 
     # Dates relative to Easter are encoded as the number of
     # days after Easter.

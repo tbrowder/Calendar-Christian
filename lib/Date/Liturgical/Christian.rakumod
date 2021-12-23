@@ -1,12 +1,20 @@
-
 unit class Date::Liturgical::Christian is Date;
 # a child class of Date
 
-use Date::Liturgical::Christian::Constants;
+use Date::Liturgical::Christian::Feasts;
 
 my $debug = 0;
 
-multi method new($year, $month, $day, |c) {
+has Hash $.result;
+
+multi method new(Hash %opts, |c) {
+    # Convert the input values to a Date object. Following code thanks
+    # to @lizmat on IRC #raku, 2021-11-18, 06:08
+    # (and on IRC #raku, 2021-03-29, 11:50)
+    self.Date::new(%opts<year>, %opts<month>, %opts<day>, |c);
+}
+
+multi method new(Hash:D %opts, $year, $month, $day, $transferred, |c) {
     # Convert the input values to a Date object. Following code thanks
     # to @lizmat on IRC #raku, 2021-11-18, 06:08
     # (and on IRC #raku, 2021-03-29, 11:50)
@@ -112,10 +120,11 @@ submethod TWEAK {
     # Now, look for feasts.
     my %feasts;
     if $!tradition eq 'ECUSA' {
-        %feasts = %(Date::Liturgical::Christian::Feasts::feasts-ECUSA);
+        %feasts = %Date::Liturgical::Christian::Feasts.feasts-ECUSA;
     }
     elsif $!tradition eq 'UMC' {
-        %feasts = %(Date::Liturgical::Christian::Feasts::feasts-UMC);
+        #%feasts = %Date::Liturgical::Christian::Feasts.feasts-UMC;
+        %feasts = %feasts-UMC;
     }
 
     my $feast-from-Easter    = %feasts{$easter-point}:exists   ?? %feasts{$easter-point} !! 0;
