@@ -114,11 +114,14 @@ submethod TWEAK {
     if $!tradition eq 'ECUSA' {
         %feasts = %(Date::Liturgical::Christian::Feasts::feasts-ECUSA);
     }
+    elsif $!tradition eq 'UMC' {
+        %feasts = %(Date::Liturgical::Christian::Feasts::feasts-UMC);
+    }
 
-    my $feast-from-Easter    = %feasts{$easter-point}:exists ?? %feasts{$easter-point} !! 0;
+    my $feast-from-Easter    = %feasts{$easter-point}:exists   ?? %feasts{$easter-point} !! 0;
     my $feast-from-Christmas = %feasts{10000+100*$m+$d}:exists ?? %feasts{10000+100*$m+$d} !! 0;
 
-    @possibles.push($feast-from-Easter) if $feast-from-Easter;
+    @possibles.push($feast-from-Easter)    if $feast-from-Easter;
     @possibles.push($feast-from-Christmas) if $feast-from-Christmas;
 
     if $debug and @possibles {
@@ -132,7 +135,7 @@ submethod TWEAK {
     unless $!transferred { # don't go round infinitely
         #my ($yestery, $yesterm, $yesterd) = Add_Delta_Days(1, 1, 1, $days-2);
         my ($yestery, $yesterm, $yesterd);
-        my $yesterday = $!date - 1;
+        my Date $yesterday = $!date - 1;
         my $transferred = Date::Liturgical::Christian.new(
             #%opts, # TODO use same as this?
             year => $yesterday.year,
@@ -152,7 +155,6 @@ submethod TWEAK {
     @possibles.push({ prec=>5, name=>"$!season $weekno" })
         #if Day_of_Week($y, $m, $d)==7;
         if $dow == 7;
-
 
     # So, which event takes priority?
     #@possibles = sort { $b->{prec} <=> $a->{prec} } @possibles;
