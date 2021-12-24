@@ -1,0 +1,124 @@
+===> Searching for: Test::META
+===> Updating fez mirror: https://360.zef.pm/
+===> Updated fez mirror: https://360.zef.pm/
+===> Updating cpan mirror: https://raw.githubusercontent.com/ugexe/Perl6-ecosystems/master/cpan1.json
+===> Updating p6c mirror: https://raw.githubusercontent.com/ugexe/Perl6-ecosystems/master/p6c1.json
+===> Updated p6c mirror: https://raw.githubusercontent.com/ugexe/Perl6-ecosystems/master/p6c1.json
+===> Updated cpan mirror: https://raw.githubusercontent.com/ugexe/Perl6-ecosystems/master/cpan1.json
+The following distributions will be upgraded: Test::META:ver<0.0.17>:auth<github:jonathanstowe>:api<1.0>
+===> Updating: Test::META:ver<0.0.17>:auth<github:jonathanstowe>:api<1.0>
+===> Searching for missing dependencies: META6:ver<0.0.24+>
+===> Searching for missing dependencies: JSON::Class:ver<0.0.15+>
+===> Searching for missing dependencies: JSON::Marshal:ver<0.0.23+>, JSON::OptIn, JSON::Name:ver<0.0.6+>
+===> Searching for missing dependencies: JSON::Fast:ver<0.16+>
+===> Testing: JSON::Fast:ver<0.16>
+===> Testing [OK] for JSON::Fast:ver<0.16>
+===> Testing: JSON::OptIn:ver<0.0.1>:auth<github:jonathanstowe>
+===> Testing [OK] for JSON::OptIn:ver<0.0.1>:auth<github:jonathanstowe>
+===> Testing: JSON::Name:ver<0.0.6>:auth<github:jonathanstowe>:api<1.0>
+===> Testing [OK] for JSON::Name:ver<0.0.6>:auth<github:jonathanstowe>:api<1.0>
+===> Testing: JSON::Marshal:ver<0.0.23>:auth<github:jonathanstowe>:api<1.0>
+===> Testing [OK] for JSON::Marshal:ver<0.0.23>:auth<github:jonathanstowe>:api<1.0>
+===> Testing: JSON::Class:ver<0.0.18>:auth<github:jonathanstowe>:api<1.0>
+===> Testing [OK] for JSON::Class:ver<0.0.18>:auth<github:jonathanstowe>:api<1.0>
+===> Testing: META6:ver<0.0.26>:auth<github:jonathanstowe>:api<1.0>
+===> Testing [OK] for META6:ver<0.0.26>:auth<github:jonathanstowe>:api<1.0>
+===> Testing: Test::META:ver<0.0.17>:auth<github:jonathanstowe>:api<1.0>
+# the following may make some diagnostics from the module itself
+===> Testing [OK] for Test::META:ver<0.0.17>:auth<github:jonathanstowe>:api<1.0>
+===> Installing: JSON::Fast:ver<0.16>
+===> Installing: JSON::OptIn:ver<0.0.1>:auth<github:jonathanstowe>
+===> Installing: JSON::Name:ver<0.0.6>:auth<github:jonathanstowe>:api<1.0>
+===> Installing: JSON::Marshal:ver<0.0.23>:auth<github:jonathanstowe>:api<1.0>
+===> Installing: JSON::Class:ver<0.0.18>:auth<github:jonathanstowe>:api<1.0>
+===> Installing: META6:ver<0.0.26>:auth<github:jonathanstowe>:api<1.0>
+===> Installing: Test::META:ver<0.0.17>:auth<github:jonathanstowe>:api<1.0>
+juvat3:git-repos$ zef install Doc::TypeGraph
+===> Searching for: Doc::TypeGraph
+===> Testing: Doc::TypeGraph:ver<2.2.1>:auth<github:JJ>:api<2>
+===> Testing [OK] for Doc::TypeGraph:ver<2.2.1>:auth<github:JJ>:api<2>
+===> Installing: Doc::TypeGraph:ver<2.2.1>:auth<github:JJ>:api<2>
+
+file PR with ===> Searching for: Test::META
+===> Updating fez mirror: https://360.zef.pm/
+===> Updated fez mirror: https://360.zef.pm/
+===> Updating cpan mirror: https://raw.githubusercontent.com/ugexe/Perl6-ecosystems/master/cpan1.json
+===> Updating p6c mirror: https://raw.githubusercontent.com/ugexe/Perl6-ecosystems/master/p6c1.json
+===> Updated p6c mirror: https://raw.githubusercontent.com/ugexe/Perl6-ecosystems/master/p6c1.json
+===> Updated cpan mirror: https://raw.githubusercontent.com/ugexe/Perl6-ecosystems/master/cpan1.json
+The following distributions will be upgraded: Test::META:ver<0.0.17>:auth<github:jonathanstowe>:api<1.0>
+===> Updating: Test::META:ver<0.0.17>:auth<github:jonathanstowe>:api<1.0>
+===> Searching for missing dependencies: META6:ver<0.0.24+>
+===> Searching for missing dependencies: JSON::Class:ver<0.0.15+>
+===> Searching for missing dependencies: JSON::Marshal:ver<0.0.23+>, JSON::OptIn, JSON::Name:ver<0.0.6+>
+===> Searching for missing dependencies: JSON::Fast:ver<0.16+>
+===> Testing: JSON::Fast:ver<0.16>
+===> Testing [OK] for JSON::Fast:ver<0.16>
+===> Testing: JSON::OptIn:ver<0.0.1>:auth<github:jonathanstowe>
+===> Testing [OK] for JSON::OptIn:ver<0.0.1>:auth<github:jonathanstowe>
+===> Testing: JSON::Name:ver<0.0.6>:auth<github:jonathanstowe>:api<1.0>
+===> Testing [OK] for JSON::Name:ver<0.0.6>:auth<github:jonathanstowe>:api<1.0>
+===> Testing: JSON::Marshal:ver<0.0.23>:auth<github:jonathanstowe>:api<1.0>
+===> Testing [OK] for JSON::Marshal:ver<0.0.23>:auth<github:jonathanstowe>:api<1.0>
+===> Testing: JSON::Class:ver<0.0.18>:auth<github:jonathanstowe>:api<1.0>
+===> Testing [OK] for JSON::Class:ver<0.0.18>:auth<github:jonathanstowe>:api<1.0>
+===> Testing: META6:ver<0.0.26>:auth<github:jonathanstowe>:api<1.0>
+===> Testing [OK] for META6:ver<0.0.26>:auth<github:jonathanstowe>:api<1.0>
+===> Testing: Test::META:ver<0.0.17>:auth<github:jonathanstowe>:api<1.0>
+# the following may make some diagnostics from the module itself
+===> Testing [OK] for Test::META:ver<0.0.17>:auth<github:jonathanstowe>:api<1.0>
+===> Installing: JSON::Fast:ver<0.16>
+===> Installing: JSON::OptIn:ver<0.0.1>:auth<github:jonathanstowe>
+===> Installing: JSON::Name:ver<0.0.6>:auth<github:jonathanstowe>:api<1.0>
+===> Installing: JSON::Marshal:ver<0.0.23>:auth<github:jonathanstowe>:api<1.0>
+===> Installing: JSON::Class:ver<0.0.18>:auth<github:jonathanstowe>:api<1.0>
+===> Installing: META6:ver<0.0.26>:auth<github:jonathanstowe>:api<1.0>
+===> Installing: Test::META:ver<0.0.17>:auth<github:jonathanstowe>:api<1.0>
+juvat3:git-repos$ zef install Doc::TypeGraph
+===> Searching for: Doc::TypeGraph
+===> Testing: Doc::TypeGraph:ver<2.2.1>:auth<github:JJ>:api<2>
+===> Testing [OK] for Doc::TypeGraph:ver<2.2.1>:auth<github:JJ>:api<2>
+===> Installing: Doc::TypeGraph:ver<2.2.1>:auth<github:JJ>:api<2>
+
+===> Searching for: Test::META
+===> Updating fez mirror: https://360.zef.pm/
+===> Updated fez mirror: https://360.zef.pm/
+===> Updating cpan mirror: https://raw.githubusercontent.com/ugexe/Perl6-ecosystems/master/cpan1.json
+===> Updating p6c mirror: https://raw.githubusercontent.com/ugexe/Perl6-ecosystems/master/p6c1.json
+===> Updated p6c mirror: https://raw.githubusercontent.com/ugexe/Perl6-ecosystems/master/p6c1.json
+===> Updated cpan mirror: https://raw.githubusercontent.com/ugexe/Perl6-ecosystems/master/cpan1.json
+The following distributions will be upgraded: Test::META:ver<0.0.17>:auth<github:jonathanstowe>:api<1.0>
+===> Updating: Test::META:ver<0.0.17>:auth<github:jonathanstowe>:api<1.0>
+===> Searching for missing dependencies: META6:ver<0.0.24+>
+===> Searching for missing dependencies: JSON::Class:ver<0.0.15+>
+===> Searching for missing dependencies: JSON::Marshal:ver<0.0.23+>, JSON::OptIn, JSON::Name:ver<0.0.6+>
+===> Searching for missing dependencies: JSON::Fast:ver<0.16+>
+===> Testing: JSON::Fast:ver<0.16>
+===> Testing [OK] for JSON::Fast:ver<0.16>
+===> Testing: JSON::OptIn:ver<0.0.1>:auth<github:jonathanstowe>
+===> Testing [OK] for JSON::OptIn:ver<0.0.1>:auth<github:jonathanstowe>
+===> Testing: JSON::Name:ver<0.0.6>:auth<github:jonathanstowe>:api<1.0>
+===> Testing [OK] for JSON::Name:ver<0.0.6>:auth<github:jonathanstowe>:api<1.0>
+===> Testing: JSON::Marshal:ver<0.0.23>:auth<github:jonathanstowe>:api<1.0>
+===> Testing [OK] for JSON::Marshal:ver<0.0.23>:auth<github:jonathanstowe>:api<1.0>
+===> Testing: JSON::Class:ver<0.0.18>:auth<github:jonathanstowe>:api<1.0>
+===> Testing [OK] for JSON::Class:ver<0.0.18>:auth<github:jonathanstowe>:api<1.0>
+===> Testing: META6:ver<0.0.26>:auth<github:jonathanstowe>:api<1.0>
+===> Testing [OK] for META6:ver<0.0.26>:auth<github:jonathanstowe>:api<1.0>
+===> Testing: Test::META:ver<0.0.17>:auth<github:jonathanstowe>:api<1.0>
+# the following may make some diagnostics from the module itself
+===> Testing [OK] for Test::META:ver<0.0.17>:auth<github:jonathanstowe>:api<1.0>
+===> Installing: JSON::Fast:ver<0.16>
+===> Installing: JSON::OptIn:ver<0.0.1>:auth<github:jonathanstowe>
+===> Installing: JSON::Name:ver<0.0.6>:auth<github:jonathanstowe>:api<1.0>
+===> Installing: JSON::Marshal:ver<0.0.23>:auth<github:jonathanstowe>:api<1.0>
+===> Installing: JSON::Class:ver<0.0.18>:auth<github:jonathanstowe>:api<1.0>
+===> Installing: META6:ver<0.0.26>:auth<github:jonathanstowe>:api<1.0>
+===> Installing: Test::META:ver<0.0.17>:auth<github:jonathanstowe>:api<1.0>
+juvat3:git-repos$ zef install Doc::TypeGraph
+===> Searching for: Doc::TypeGraph
+===> Testing: Doc::TypeGraph:ver<2.2.1>:auth<github:JJ>:api<2>
+===> Testing [OK] for Doc::TypeGraph:ver<2.2.1>:auth<github:JJ>:api<2>
+===> Installing: Doc::TypeGraph:ver<2.2.1>:auth<github:JJ>:api<2>
+
+file PR for JJ's Doc::TypeGraph requiring test-depends on Test::META:ver<0.0.17+>
