@@ -2,9 +2,13 @@ unit class Date::Liturgical::Christian is Date;
 # a child class of Date
 
 use Date::Liturgical::Christian::Feasts;
+use Storable::Lite;
+
+# use a class attribute to define a file in which to keep 
+# a copy of the serialized class (to-file, from-file)
+my $serial = '.date-liturgical-christian'; 
 
 my $debug = 0;
-
 
 multi method new(:%opts!) { #, |c) {
     # Convert the input values to a Date object. Following code thanks
