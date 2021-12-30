@@ -7,7 +7,9 @@ use Date::Liturgical::Christian::Feasts;
 
 # use a class attribute to define a file in which to keep 
 # a copy of the serialized class (to-file, from-file)
-my $serial = '.date-liturgical-christian'; 
+my $dir = %*ENV<HOME> // '.';
+my $xfer-store = $dir ~ '/' ~ '.date-liturgical-christian'; 
+method xfer-store { $xfer-store }
 
 my $debug = 0;
 
@@ -136,6 +138,9 @@ submethod TWEAK {
     elsif $!tradition eq 'UMC' {
         %feasts = %feasts-UMC;
     }
+    else {
+        die "FATAL: Unknown tradition '$!tradition'";
+    }
 
     my $feast-from-Easter    = %feasts{$easter-point}:exists   ?? %feasts{$easter-point}   !! 0;
     my $feast-from-Christmas = %feasts{10000+100*$m+$d}:exists ?? %feasts{10000+100*$m+$d} !! 0;
@@ -201,6 +206,7 @@ submethod TWEAK {
     #=end comment
 
     #my $result = ${dclone(\($possibles[0]))};
+    # TODO if @possibles[0] is a persistent class, restore its result
     $!result = @possibles[0];
 
     unless $!result {
@@ -227,10 +233,10 @@ submethod TWEAK {
             # unless marked differently.
             # But martyrs are red, and Marian
             # feasts *might* be blue.
-            if $!result<martyr> {
+            if $!result<martyr>:exists {
                 $!result<color> = 'red';
             }
-            elsif $!bvm-blue && $!result<bvm> {
+            elsif $!bvm-blue && ($!result<bvm>:exists) {
                 $!result<color> = 'blue';
             }
             else {
