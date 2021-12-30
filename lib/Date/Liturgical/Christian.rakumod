@@ -1,8 +1,9 @@
-unit class Date::Liturgical::Christian is Date;
+use Storable::Lite;
+
+unit class Date::Liturgical::Christian is Date does FileStore;
 # a child class of Date
 
 use Date::Liturgical::Christian::Feasts;
-use Storable::Lite;
 
 # use a class attribute to define a file in which to keep 
 # a copy of the serialized class (to-file, from-file)
@@ -25,8 +26,8 @@ multi method new($year, $month, $day, :%opts, :$transferred) { # , |c) {
 }
 
 # constructor options
-#has $.tradition   = 'ECUSA'; # Episcopal Church USA
-has $.tradition   = 'UMC'; # United Methodist Church
+has $.tradition   = 'ECUSA'; # Episcopal Church USA
+#has $.tradition   = 'UMC'; # United Methodist Church
 
 has Hash $.result is rw;
 
@@ -130,10 +131,9 @@ submethod TWEAK {
     # Now, look for feasts.
     my %feasts;
     if $!tradition eq 'ECUSA' {
-        %feasts = %Date::Liturgical::Christian::Feasts.feasts-ECUSA;
+        %feasts = %feasts-ECUSA;
     }
     elsif $!tradition eq 'UMC' {
-        #%feasts = %Date::Liturgical::Christian::Feasts.feasts-UMC;
         %feasts = %feasts-UMC;
     }
 

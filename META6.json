@@ -7,7 +7,7 @@
   "build-depends": [
   ],
   "depends": [
-    "Date::Christian::Advent" 
+    "Date::Christian::Advent",
     "Date::Easter",
     "Storable::Lite"
   ],
