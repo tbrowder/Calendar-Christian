@@ -166,6 +166,7 @@ submethod TWEAK {
             month => $yesterday.month,
             day => $yesterday.day,
             transferred => 1,
+            :%opts, # TODO use same as this?
         );
 
         if $transferred {
@@ -181,18 +182,15 @@ submethod TWEAK {
         if $dow == 7;
 
     # So, which event takes priority?
-    #@possibles = sort { $b->{prec} <=> $a->{prec} } @possibles;
-
-    #if $debug and @possibles {
-    if 1 and @possibles {
-        note "DEBUG: dumping sorted \@possibles array:";
-        note @possibles.raku;
-    }
 
     # TODO fix this:
     # sort highest to lowest
     #@possibles = sort { $b->{prec} <=> $a->{prec} } @possibles;
     @possibles = sort { $^b<prec> <=> $^a<prec> }, @possibles;
+    if 0 and @possibles {
+        note "DEBUG: dumping sorted \@possibles array:";
+        note @possibles.raku;
+    }
 
     #=begin comment
     #if %opts{transferred} {
