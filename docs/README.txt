@@ -1,4 +1,4 @@
-README for DateTime::Calendar::Liturgical::Christian
+Orignal README for DateTime::Calendar::Liturgical::Christian
 
 This module will return the name, season, week number and liturgical
 colour for any day in the Gregorian calendar. It will eventually

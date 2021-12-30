@@ -7,6 +7,8 @@
   "build-depends": [
   ],
   "depends": [
+    "Date::Christian::Advent" 
+    "Date::Easter",
     "Storable::Lite"
   ],
   "description": "calendar of the church year",
