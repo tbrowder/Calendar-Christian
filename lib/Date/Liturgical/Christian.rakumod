@@ -153,20 +153,16 @@ submethod TWEAK {
         note @possibles.raku;
     }
 
-    #=begin comment
     # Maybe transferred from yesterday.
-    #unless %opts{transferred} { # don't go round infinitely
-    unless $!transferred { # don't go round infinitely
-        #my ($yestery, $yesterm, $yesterd) = Add_Delta_Days(1, 1, 1, $days-2);
-        my ($yestery, $yesterm, $yesterd);
+    if not $!transferred { # don't go round infinitely
         my Date $yesterday = self - 1; #$!date - 1;
         my $transferred = Date::Liturgical::Christian.new(
             #%opts, # TODO use same as this?
-            year => $yesterday.year,
-            month => $yesterday.month,
-            day => $yesterday.day,
+            $yesterday.year,
+            $yesterday.month,
+            $yesterday.day,
             transferred => 1,
-            :%opts, # TODO use same as this?
+            #:%opts(%opts), # TODO use same as this?
         );
 
         if $transferred {
@@ -175,7 +171,6 @@ submethod TWEAK {
             push @possibles, $transferred.result;
         }
     }
-    #=end comment
 
     # Maybe a Sunday.
     @possibles.push({ prec => 5, name => "$season $weekno" })
@@ -192,7 +187,6 @@ submethod TWEAK {
         note @possibles.raku;
     }
 
-    #=begin comment
     #if %opts{transferred} {
     if $!transferred {
         # If two feasts coincided today, we were asked to find the one
@@ -201,13 +195,12 @@ submethod TWEAK {
         return 0 if @possibles[1] && @possibles[1]<prec> == 5;
         return @possibles[1];
     }
-    #=end comment
 
     #my $result = ${dclone(\($possibles[0]))};
     # TODO if @possibles[0] is a persistent class, restore its result
     $!result = @possibles[0];
 
-    unless $!result {
+    if not $!result {
         $!result = { name => '', prec => 1 };
     }
 
