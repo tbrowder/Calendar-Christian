@@ -9,6 +9,7 @@
   "depends": [
     "Date::Christian::Advent",
     "Date::Easter",
+    "Shareable",
     "Storable::Lite"
   ],
   "description": "calendar of the church year",
