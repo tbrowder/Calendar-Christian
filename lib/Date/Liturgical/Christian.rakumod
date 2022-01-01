@@ -2,6 +2,10 @@ use Shareable;
 use Date::Christian::Advent;
 use Date::Easter;
 
+use Data::Dump::Tree;
+
+use Result;
+
 unit class Date::Liturgical::Christian is Date is Shareable; 
 # a child class of Date
 
@@ -168,9 +172,13 @@ submethod TWEAK {
         );
 
         if $transferred {
+            ddt $transferred;
+
             $transferred.result<name> ~= ' (transferred)';
+            $transferred.store;
+
             #push @possibles, %($transferred.result);
-            push @possibles, $transferred.result;
+            #push @possibles, $transferred.result;
         }
     }
 
@@ -193,6 +201,12 @@ submethod TWEAK {
     if $!transferred {
         # If two feasts coincided today, we were asked to find the one
         # which got transferred.  But Sundays don't get transferred!
+
+        # get the stored value
+        my $s = Date::Liturgical::Christian.from-store;
+        return 0 if $s.prec == 5;
+        return $s;
+
         #return undef if @possibles[1] && @possibles[1]<prec> == 5;
         return 0 if @possibles[1] && @possibles[1]<prec> == 5;
         return @possibles[1];
