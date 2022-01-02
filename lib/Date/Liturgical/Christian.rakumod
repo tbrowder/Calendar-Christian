@@ -5,6 +5,7 @@ unit class Date::Liturgical::Christian is Date;
 # a child class of Date
 
 use Date::Liturgical::Christian::Feasts;
+use Date::Liturgical::Christian::Day;
 
 my $debug = 0;
 
