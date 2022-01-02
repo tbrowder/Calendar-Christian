@@ -26,7 +26,11 @@ has $.advent-blue = 0;
 has $.bvm-blue    = 0;
 has $.rose        = 0;
 
-=begin comment
+# other attrs
+has Hash $.result;
+has $.Easter;
+has $.martyr;
+
 submethod TWEAK {
     my $days = self.day-of-year;
     my $y    = self.year;
@@ -131,6 +135,7 @@ submethod TWEAK {
         note @possibles.raku;
     }
 
+    =begin comment
     # Maybe transferred from yesterday.
     if not $!transferred { # don't go round infinitely
         my Date $yesterday = self - 1; #$!date - 1;
@@ -149,6 +154,7 @@ submethod TWEAK {
             push @possibles, $transferred.result;
         }
     }
+    =end comment
 
     # Maybe a Sunday.
     @possibles.push({ prec => 5, name => "$season $weekno" })
@@ -165,6 +171,7 @@ submethod TWEAK {
         note @possibles.raku;
     }
 
+    =begin comment
     #if %opts{transferred} {
     if $!transferred {
         # If two feasts coincided today, we were asked to find the one
@@ -173,6 +180,7 @@ submethod TWEAK {
         return 0 if @possibles[1] && @possibles[1]<prec> == 5;
         return @possibles[1];
     }
+    =end comment
 
     #my $result = ${dclone(\($possibles[0]))};
     # TODO if @possibles[0] is a persistent class, restore its result
@@ -261,7 +269,6 @@ submethod TWEAK {
             when $k eq 'season' { $!season = $v }
             when $k eq 'bvm'    { $!bvm    = $v }
             when $k eq 'martyr' { $!martyr = $v }
-            when $k eq 'transferred' { $!transferred = $v }
 
             if $debug {
                 when $k eq 'weekno' { note "DEBUG: Skipping key 'weekno'" }
@@ -279,4 +286,3 @@ method color  { self.result<color> // '' }
 method name   { self.result<name> // '' }
 method season { self.result<season> // '' }
 method prec   { self.result<prec> // '' }
-=end comment
