@@ -26,6 +26,7 @@
     "Christian calendar liturgical liturgy"
   ],
   "test-depends": [
+    "Text::Utils"
   ],
   "version": "0.0.1"
 }
