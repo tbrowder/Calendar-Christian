@@ -52,6 +52,116 @@ submethod TWEAK {
     $!Easter = Easter($y);
 
     my @possibles;
+
+# line 189 (line 297 - 189 = 108 lines following this line
+=begin comment
+    #======================================================
+    # all below here belongs to Date::Liturgical::Christian
+    #======================================================
+
+    #my $result = ${dclone(\($possibles[0]))};
+    # TODO if @possibles[0] is a persistent class, restore its result
+    $!result = @possibles[0];
+
+    if not $!result {
+        $!result = { name => '', prec => 1 };
+    }
+
+    # TODO fix this:
+    #$result = { %opts, %$result, season=>$!season, weekno=>$weekno };
+    $!result<season> = $season;
+    $!result<weekno> = $weekno;
+
+    #if %opts{rose} {
+    if $!rose {
+        my %rose-days = [ 'Advent 2' => 1, 'Lent 3' => 1 ];
+        #$result->{colour} = 'rose' if %rose_days{$result->{name}};
+        $!result<color> = 'rose' if %rose-days{$!result<name>:exists} and %rose-days{$!result<name>};
+    }
+
+    # TODO fix this
+    #if !defined $result<color> {
+    unless $!result<color>:exists {
+        if $!result<prec> > 2 && $!result<prec> != 5 {
+            # Feasts are generally white,
+            # unless marked differently.
+            # But martyrs are red, and Marian
+            # feasts *might* be blue.
+            if $!result<martyr>:exists {
+                $!result<color> = 'red';
+            }
+            elsif $!bvm-blue && ($!result<bvm>:exists) {
+                $!result<color> = 'blue';
+            }
+            else {
+                $!result<color> = 'white';
+            }
+        }
+        else {
+            # Not a feast day.
+            if $season eq 'Lent' {
+                $!result<color> = 'purple';
+            }
+            elsif $season eq 'Advent' {
+                if $!advent-blue {
+                    $!result<color> = 'blue';
+                }
+                else {
+                    $!result<color> = 'purple';
+                }
+            }
+            else {
+                # The great fallback:
+                $!result<color> = 'green';
+            }
+        }
+    }
+
+    # Two special cases for Christmas-based festivals which depend on
+    # the day of the week.
+
+    if $!result<prec> == 5 { # An ordinary Sunday
+        if $christmas-point == $advent-sunday {
+            $!result<name> = 'Advent Sunday';
+            $!result<color> = 'white';
+        }
+        elsif $christmas-point == $advent-sunday -7 {
+            $!result<name> = 'Christ the King';
+            $!result<color> = 'white';
+        }
+    }
+
+    if $debug {
+        note "DEBUG: dumping var \$result hash:";
+        #note $result.raku;
+        note $!result.raku;
+    }
+
+    =begin comment
+    for $!result.kv -> $k, $v {
+        note "DEBUG: result key '$k' => '$v'" if $debug;
+        given $k {
+            when $k eq 'color'  { $!color  = $v }
+            when $k eq 'name'   { $!name   = $v }
+            when $k eq 'season' { $!season = $v }
+            when $k eq 'bvm'    { $!bvm    = $v }
+            when $k eq 'martyr' { $!martyr = $v }
+
+            if $debug {
+                when $k eq 'weekno' { note "DEBUG: Skipping key 'weekno'" }
+                when $k eq 'prec'   { note "DEBUG: Skipping key 'prec'" }
+                default {
+                    die "FATAL DEV: unhandled key '$k'"
+                }
+            }
+        }
+    }
+    =end comment
+    #======================================================
+    # all above here belongs to Date::Liturgical::Christian
+    #======================================================
+=end comment
+    # line 297
 }
 
 =begin comment

@@ -31,6 +31,8 @@ has Hash $.result;
 has $.Easter;
 has $.martyr;
 
+has @!possibles;
+
 submethod TWEAK {
     my $days = self.day-of-year;
     my $y    = self.year;
@@ -182,6 +184,14 @@ submethod TWEAK {
     }
     =end comment
 
+    @!possibles = @possibles;
+
+# line 189 (line 297 - 189 = 108 lines following this line
+=begin comment
+    #======================================================
+    # all below here belongs to Date::Liturgical::Christian
+    #======================================================
+
     #my $result = ${dclone(\($possibles[0]))};
     # TODO if @possibles[0] is a persistent class, restore its result
     $!result = @possibles[0];
@@ -280,9 +290,18 @@ submethod TWEAK {
         }
     }
     =end comment
+    #======================================================
+    # all above here belongs to Date::Liturgical::Christian
+    #======================================================
+=end comment
+    # line 297
 }
 
+
+=begin comment
 method color  { self.result<color> // '' }
 method name   { self.result<name> // '' }
 method season { self.result<season> // '' }
 method prec   { self.result<prec> // '' }
+=end comment
+
