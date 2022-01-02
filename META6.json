@@ -8,9 +8,7 @@
   ],
   "depends": [
     "Date::Christian::Advent",
-    "Date::Easter",
-    "Shareable",
-    "Storable::Lite"
+    "Date::Easter"
   ],
   "description": "calendar of the church year",
   "license": "Artistic-2.0",
@@ -18,8 +16,8 @@
   "perl": "6.d",
   "provides": {
     "Date::Liturgical::Christian": "lib/Date/Liturgical/Christian.rakumod",
-    "Date::Liturgical::Christian::Feasts": "lib/Date/Liturgical/Christian/Feasts.rakumod",
-    "Result": "lib/Result.rakumod"
+    "Date::Liturgical::Christian::Day": "lib/Date/Liturgical/Christian/Day.rakumod",
+    "Date::Liturgical::Christian::Feasts": "lib/Date/Liturgical/Christian/Feasts.rakumod"
   },
   "resources": [
   ],
@@ -28,6 +26,7 @@
     "Christian calendar liturgical liturgy"
   ],
   "test-depends": [
+    "Text::Utils"
   ],
   "version": "0.0.1"
 }
