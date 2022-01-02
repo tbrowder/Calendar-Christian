@@ -1,49 +1,32 @@
 use Date::Christian::Advent;
 use Date::Easter;
 
-unit class Date::Liturgical::Christian::Day; 
+unit class Date::Liturgical::Christian::Day is Date; 
 # a child class of Date
 
 use Date::Liturgical::Christian::Feasts;
 
 my $debug = 0;
 
-multi method new(:%opts!) { #, |c) {
+multi method new($year, $month, $day, 
+                 :$tradition!,
+                 :$advent-blue!,
+                 :$bvm-blue!,
+                 :$rose!,
+                ) {
     # Convert the input values to a Date object. Following code thanks
     # to @lizmat on IRC #raku, 2021-11-18, 06:08
     # (and on IRC #raku, 2021-03-29, 11:50)
-    self.Date::new(%opts<year>, %opts<month>, %opts<day>); #, |c);
+    self.Date::new($year, $month, $day);
 }
 
-multi method new($year, $month, $day, :%opts, :$transferred) { # , |c) {
-    # Convert the input values to a Date object. Following code thanks
-    # to @lizmat on IRC #raku, 2021-11-18, 06:08
-    # (and on IRC #raku, 2021-03-29, 11:50)
-    self.Date::new($year, $month, $day, :%opts, :$transferred); # |c);
-}
-
-# constructor options
-has $.tradition   = 'ECUSA'; # Episcopal Church USA
-#has $.tradition   = 'UMC'; # United Methodist Church
-
-has Hash $.result is rw;
-
-has Date $!Easter;
-
-has $.transferred = 0;
-
+# constructor named options
+has $.tradition; #   = 'ECUSA'; # Episcopal Church USA #has $.tradition   = 'UMC'; # United Methodist Church
 has $.advent-blue = 0;
 has $.bvm-blue    = 0;
 has $.rose        = 0;
 
 =begin comment
-has $.color  = '';
-has $.season = '';
-has $.name   is rw = '';
-has $.bvm    = '';
-has $.martyr = '';
-=end comment
-
 submethod TWEAK {
     my $days = self.day-of-year;
     my $y    = self.year;
@@ -296,19 +279,4 @@ method color  { self.result<color> // '' }
 method name   { self.result<name> // '' }
 method season { self.result<season> // '' }
 method prec   { self.result<prec> // '' }
-
-sub to-index-rel-christmas($month, $day) is export {
-    # Dates relative to Christmas are encoded to the index as 10000 + 100*m + d
-    # for simplicity.
-    # Example: m=1, d=1 => 10000 + 100*1 + 1 = 10000+100+1 = 10101
-    # Example: m=12, d=31 => 10000 + 100*12 + 1 = 10000+1200+31 = 11231
-    10000 + 100*$month + $day
-}
-
-sub from-index-rel-christmas($index --> List) is export {
-    # Dates relative to Christmas are decoded from 10000 + 100*m + d.
-    my $md = $index - 10000;
-    my $m = $md div 100;
-    my $d = $md mod 100;
-    $m, $d
-}
+=end comment
