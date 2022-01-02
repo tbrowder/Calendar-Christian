@@ -6,12 +6,6 @@ unit class Date::Liturgical::Christian::Day;
 
 use Date::Liturgical::Christian::Feasts;
 
-# use a class attribute to define a file in which to keep 
-# a copy of the serialized class (to-file, from-file)
-my $dir = %*ENV<HOME> // '.';
-my $xfer-store = $dir ~ '/' ~ '.date-liturgical-christian'; 
-method xfer-store { $xfer-store }
-
 my $debug = 0;
 
 multi method new(:%opts!) { #, |c) {

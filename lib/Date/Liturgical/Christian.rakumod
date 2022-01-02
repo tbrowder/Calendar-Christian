@@ -1,56 +1,47 @@
-use Shareable;
 use Date::Christian::Advent;
 use Date::Easter;
 
-unit class Date::Liturgical::Christian is Date is Shareable; 
+unit class Date::Liturgical::Christian is Date; 
 # a child class of Date
 
 use Date::Liturgical::Christian::Feasts;
 
-# use a class attribute to define a file in which to keep 
-# a copy of the serialized class (to-file, from-file)
-my $dir = %*ENV<HOME> // '.';
-my $xfer-store = $dir ~ '/' ~ '.date-liturgical-christian'; 
-method xfer-store { $xfer-store }
-
 my $debug = 0;
 
-multi method new(:%opts!) { #, |c) {
+multi method new($year, $month, $day, 
+                 :$tradition   = 'ECUSA', # Episcopal Church USA
+                 :$advent-blue = 0,
+                 :$bvm-blue    = 0,
+                 :$rose        = 0,
+                ) {
     # Convert the input values to a Date object. Following code thanks
     # to @lizmat on IRC #raku, 2021-11-18, 06:08
     # (and on IRC #raku, 2021-03-29, 11:50)
-    self.Date::new(%opts<year>, %opts<month>, %opts<day>); #, |c);
+    self.Date::new($year, $month, $day);
 }
 
-multi method new($year, $month, $day, :%opts, :$transferred) { # , |c) {
-    # Convert the input values to a Date object. Following code thanks
-    # to @lizmat on IRC #raku, 2021-11-18, 06:08
-    # (and on IRC #raku, 2021-03-29, 11:50)
-    self.Date::new($year, $month, $day, :%opts, :$transferred); # |c);
-}
-
-# constructor options
-has $.tradition   = 'ECUSA'; # Episcopal Church USA
-#has $.tradition   = 'UMC'; # United Methodist Church
-
-has Hash $.result is rw;
-
-has Date $!Easter;
-
-has $.transferred = 0;
-
+# constructor named options
+has $.tradition; #   = 'ECUSA'; # Episcopal Church USA #has $.tradition   = 'UMC'; # United Methodist Church
 has $.advent-blue = 0;
 has $.bvm-blue    = 0;
 has $.rose        = 0;
 
 =begin comment
-has $.color  = '';
-has $.season = '';
+# outputs for an input year, month, day:
 has $.name   is rw = '';
+has $.season = '';
+has $.color  = '';
 has $.bvm    = '';
+has $.weekno = '';
+=end comment
+
+=begin comment
 has $.martyr = '';
 =end comment
 
+has Date $!Easter;
+
+=begin comment
 submethod TWEAK {
     my $days = self.day-of-year;
     my $y    = self.year;
@@ -276,33 +267,15 @@ submethod TWEAK {
         note $!result.raku;
     }
 
-    =begin comment
-    for $!result.kv -> $k, $v {
-        note "DEBUG: result key '$k' => '$v'" if $debug;
-        given $k {
-            when $k eq 'color'  { $!color  = $v }
-            when $k eq 'name'   { $!name   = $v }
-            when $k eq 'season' { $!season = $v }
-            when $k eq 'bvm'    { $!bvm    = $v }
-            when $k eq 'martyr' { $!martyr = $v }
-            when $k eq 'transferred' { $!transferred = $v }
-
-            if $debug {
-                when $k eq 'weekno' { note "DEBUG: Skipping key 'weekno'" }
-                when $k eq 'prec'   { note "DEBUG: Skipping key 'prec'" }
-                default {
-                    die "FATAL DEV: unhandled key '$k'"
-                }
-            }
-        }
-    }
-    =end comment
 }
+=end comment
 
+=begin comment
 method color  { self.result<color> // '' }
 method name   { self.result<name> // '' }
 method season { self.result<season> // '' }
 method prec   { self.result<prec> // '' }
+=end comment
 
 sub to-index-rel-christmas($month, $day) is export {
     # Dates relative to Christmas are encoded to the index as 10000 + 100*m + d
