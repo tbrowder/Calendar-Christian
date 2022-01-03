@@ -1,11 +1,10 @@
 use Date::Christian::Advent;
 use Date::Easter;
+use Date::Liturgical::Christian::Feasts;
+use Date::Liturgical::Christian::Day;
 
 unit class Date::Liturgical::Christian is Date;
 # a child class of Date
-
-use Date::Liturgical::Christian::Feasts;
-use Date::Liturgical::Christian::Day;
 
 my $debug = 0;
 
@@ -22,7 +21,7 @@ multi method new($year, $month, $day,
 }
 
 # constructor named options
-has $.tradition; #   = 'ECUSA'; # Episcopal Church USA #has $.tradition   = 'UMC'; # United Methodist Church
+has $.tradition   = 'ECUSA'; #   = 'ECUSA'; # Episcopal Church USA #has $.tradition   = 'UMC'; # United Methodist Church
 has $.advent-blue = 0;
 has $.bvm-blue    = 0;
 has $.rose        = 0;
@@ -49,7 +48,26 @@ submethod TWEAK {
     my $d    = self.day;
     my $dow  = self.day-of-week;
 
+    my $yesterday = self - 1;
+    my $yy    = $yesterday.year;
+    my $ym    = $yesterday.month;
+    my $yd    = $yesterday.day;
+
+    my $tradition   = $!tradition; #   = 'ECUSA'; # Episcopal Church USA #has $.tradition   = 'UMC'; # United Methodist Church
+    my $advent-blue = $!advent-blue;
+    my $bvm-blue    = $!bvm-blue;
+    my $rose        = $!rose;
+
     $!Easter = Easter($y);
+
+    # get the possibles for today as well as for the previous day
+    my $today = Date::Liturgical::Christian::Day.new: $y, $m, $d, 
+                :$tradition, :$advent-blue, :$bvm-blue, :$rose;
+    my $yday  = Date::Liturgical::Christian::Day.new: $yy, $ym, $yd, 
+                :$tradition, :$advent-blue, :$bvm-blue, :$rose;
+
+    my @possibles-today = $today.possibles;
+    my @possibles-yday  = $yday.possibles;
 
     my @possibles;
 
@@ -162,7 +180,7 @@ submethod TWEAK {
     #======================================================
 
 =end comment
-# line 297
+    # line 297
 }
 
 
