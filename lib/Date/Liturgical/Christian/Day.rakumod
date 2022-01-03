@@ -12,6 +12,7 @@ multi method new($year, $month, $day,
                  :$advent-blue!,
                  :$bvm-blue!,
                  :$rose!,
+                 :$yesterday, # true if called as yesterday
                 ) {
     # Convert the input values to a Date object. Following code thanks
     # to @lizmat on IRC #raku, 2021-11-18, 06:08
@@ -30,6 +31,8 @@ has Hash $.result;
 has $.Easter;
 has $.martyr;
 
+has $.weekno;
+has $.season;
 has @.possibles;
 
 submethod TWEAK {
@@ -183,6 +186,8 @@ submethod TWEAK {
     }
     =end comment
 
+    $!season    = $season;
+    $!weekno    = $weekno;
     @!possibles = @possibles;
 
 }

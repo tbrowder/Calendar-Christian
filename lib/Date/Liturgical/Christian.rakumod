@@ -61,15 +61,31 @@ submethod TWEAK {
     $!Easter = Easter($y);
 
     # get the possibles for today as well as for the previous day
-    my $today = Date::Liturgical::Christian::Day.new: $y, $m, $d, 
-                :$tradition, :$advent-blue, :$bvm-blue, :$rose;
-    my $yday  = Date::Liturgical::Christian::Day.new: $yy, $ym, $yd, 
+    my $yday = Date::Liturgical::Christian::Day.new: $yy, $ym, $yd, 
+                :$tradition, :$advent-blue, :$bvm-blue, :$rose, :yesterday;
+    my $tday = Date::Liturgical::Christian::Day.new: $y, $m, $d, 
                 :$tradition, :$advent-blue, :$bvm-blue, :$rose;
 
-    my @possibles-today = $today.possibles;
+    # also need the season and week number for each
+    my $yday-season = $yday.season;
+    my $yday-weekno = $yday.weekno;
+    my $tday-season = $tday.season;
+    my $tday-weekno = $tday.weekno;
+
+
+    my @possibles-tday = $tday.possibles;
+    note "DEBUG: today possibles: {@possibles-tday.raku}";
+
     my @possibles-yday  = $yday.possibles;
+    note "DEBUG: yesterday possibles: {@possibles-yday.raku}";
 
+    # TODO figure out how to handle the "yesterday" possibles (may have to go the Day TWEAK)
     my @possibles;
+    @possibles.push(@possibles-yday.unshift) if @possibles-yday.elems; 
+    @possibles.push: @possibles-tday;
+    # don't forget to sort them
+
+
 
 # line 189 (line 297 - 189 = 108 lines following this line
 =begin comment
