@@ -81,6 +81,15 @@ submethod TWEAK {
     my $tday-ad = $tday.advent-sunday;
 
     my @possibles-tday = $tday.possibles;
+    my $npt = $tday.possibles.elems;
+    if $debug and $npt > 1 {
+        print "  $npt feasts today:";
+        for $tday.possibles -> $r {
+            print " '{$r.name}'"; 
+        }
+        say()
+    }
+
     note "DEBUG: today possibles: {@possibles-tday.raku}" if $debug;
 
     my @possibles-yday  = $yday.possibles;

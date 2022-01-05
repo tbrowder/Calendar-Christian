@@ -25,11 +25,16 @@ my $debug = 0;
 my $dstart = Date.new: $year, 1, 1;
 my $d = $dstart;
 while $d.year < $year+1 {
-    last if $ndays and $d.day-of-year > $ndays;
+    my $doy = $d.day-of-year;
+
+    last if $ndays and $doy > $ndays;
+
 
     # get and print the current day's data 
     my $ld = Date::Liturgical::Christian.new: $d.year, $d.month, $d.day;
-    note "DEBUG: $d easter point {$ld.ep}; christmas point {$ld.cp}; advent {$ld.ad}" if 1 or $debug;
+    note "DEBUG: $d season {$ld.season}; easter point {$ld.ep}; christmas point {$ld.cp}; advent {$ld.ad}" if 1 or $debug;
+
+    # show the named feast from Christmas and Easter for the day, if any.
     #say $ld.raku;
 
     ++$d;

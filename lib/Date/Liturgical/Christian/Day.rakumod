@@ -34,9 +34,10 @@ has $.martyr;
 has $.weekno;
 has $.season;
 has @.possibles;
+# for debugging
 has $.easter-point;
 has $.christmas-point;
-has $.advent-sunday; # TODO this should be days before Christmas expressed as a negative number!
+has $.advent-sunday; # this is days before Christmas expressed as a negative number!
 
 
 submethod TWEAK {
@@ -143,7 +144,6 @@ submethod TWEAK {
         note "DEBUG: Two feasts on the same day: '{$ffe.raku}' and '{$ffc.raku}'.";
     }
 
-
     @possibles.push($ffe) if $feast-from-Easter;
     @possibles.push($ffc) if $feast-from-Christmas;
 
@@ -152,11 +152,10 @@ submethod TWEAK {
         note @possibles.raku;
     }
 
-    # TODO It seems that if two feasts appear on the same day, the
-    # lower-precedence feast is transferred to the next day. But
-    # Sundays are NOT transferred.  Check the output of good testing
-    # to see how that works in practice, but, first, I have to get the
-    # season algorithm working!
+    # There is only one feast per day for each of Christmas and Easter references.
+    # However, there may be one of each occuring on the same day, so one
+    # will get transferred to the next day: the one with the lowest precedence.
+    # Note Sundays are never transferred.
 
     =begin comment
     # Maybe transferred from yesterday.
@@ -213,7 +212,6 @@ submethod TWEAK {
     $!season    = $season;
     $!weekno    = $weekno;
     @!possibles = @possibles;
-
 }
 
 
