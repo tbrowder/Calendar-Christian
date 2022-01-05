@@ -20,13 +20,17 @@ die "FATAL: Year '$year' is not a valid year." if $year !~~ /\d**4/;
 my $ndays = @*ARGS.elems ?? @*ARGS.shift !! 0;
 die "FATAL: N '$ndays' is not a valid number." if $ndays !~~ /\d+/;
 
+my $debug = 0;
+
 my $dstart = Date.new: $year, 1, 1;
 my $d = $dstart;
 while $d.year < $year+1 {
     last if $ndays and $d.day-of-year > $ndays;
 
     # get and print the current day's data 
-    say $d;
+    my $ld = Date::Liturgical::Christian.new: $d.year, $d.month, $d.day;
+    note "DEBUG: $d easter point {$ld.ep}; christmas point {$ld.cp}; advent {$ld.ad}" if 1 or $debug;
+    #say $ld.raku;
 
     ++$d;
 }

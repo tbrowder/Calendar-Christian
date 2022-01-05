@@ -1,7 +1,9 @@
 use Date::Christian::Advent;
 use Date::Easter;
 use Date::Liturgical::Christian::Feasts;
+use Date::Liturgical::Christian::Feast;
 use Date::Liturgical::Christian::Day;
+use Date::Liturgical::Christian::Result;
 
 unit class Date::Liturgical::Christian is Date;
 # a child class of Date
@@ -40,6 +42,7 @@ has $.martyr = '';
 =end comment
 
 has Date $!Easter;
+has Hash $.result;
 
 submethod TWEAK {
     my $days = self.day-of-year;
@@ -72,49 +75,53 @@ submethod TWEAK {
     my $tday-season = $tday.season;
     my $tday-weekno = $tday.weekno;
 
+    # and more data for debugging
+    my $tday-ep = $tday.easter-point;
+    my $tday-cp = $tday.christmas-point;
+    my $tday-ad = $tday.advent-sunday;
 
     my @possibles-tday = $tday.possibles;
-    note "DEBUG: today possibles: {@possibles-tday.raku}";
+    note "DEBUG: today possibles: {@possibles-tday.raku}" if $debug;
 
     my @possibles-yday  = $yday.possibles;
-    note "DEBUG: yesterday possibles: {@possibles-yday.raku}";
+    note "DEBUG: yesterday possibles: {@possibles-yday.raku}" if $debug;
 
-    # TODO figure out how to handle the "yesterday" possibles (may have to go the Day TWEAK)
+    # TODO figure out how to handle the "yesterday" possibles (may have to go to the Day TWEAK)
     my @possibles;
-    @possibles.push(@possibles-yday.unshift) if @possibles-yday.elems; 
-    @possibles.push: @possibles-tday;
-    # don't forget to sort them
+    #@possibles.push(@possibles-yday.unshift) if @possibles-yday.elems; 
+    @possibles.append: @possibles-tday;
 
+    # don't forget to sort them
+    @possibles = sort { $^b.prec <=> $^a.prec }, @possibles;
 
 
 # line 189 (line 297 - 189 = 108 lines following this line
-=begin comment
     #======================================================
     # all below here belongs to Date::Liturgical::Christian
     #======================================================
 
-    #my $result = ${dclone(\($possibles[0]))};
-    # TODO if @possibles[0] is a persistent class, restore its result
-    $!result = @possibles[0];
+    # transform @possibles[0] to $!result
+    $!result = @possibles.elems ?? get-possibles(@possibles[0]) !! %(); #.shift;
 
-    if not $!result {
-        $!result = { name => '', prec => 1 };
+    if not $!result.elems {
+        $!result<name> = '';
+        $!result<prec> = 1;
     }
 
-    # TODO fix this:
-    #$result = { %opts, %$result, season=>$!season, weekno=>$weekno };
-    $!result<season> = $season;
-    $!result<weekno> = $weekno;
+    $!result<season> = $tday.season // '';
+    $!result<weekno> = $tday.weekno // '';
+    # for debugging
+    $!result<ep>     = $tday-ep;
+    $!result<cp>     = $tday-cp;
+    $!result<ad>     = $tday-ad;
 
-    #if %opts{rose} {
     if $!rose {
         my %rose-days = [ 'Advent 2' => 1, 'Lent 3' => 1 ];
-        #$result->{colour} = 'rose' if %rose_days{$result->{name}};
         $!result<color> = 'rose' if %rose-days{$!result<name>:exists} and %rose-days{$!result<name>};
     }
 
-    # TODO fix this
-    #if !defined $result<color> {
+    note "DEBUG: result hash: |{$!result.raku}|" if $debug;
+#=begin comment
     unless $!result<color>:exists {
         if $!result<prec> > 2 && $!result<prec> != 5 {
             # Feasts are generally white,
@@ -133,10 +140,10 @@ submethod TWEAK {
         }
         else {
             # Not a feast day.
-            if $season eq 'Lent' {
+            if $tday.season eq 'Lent' {
                 $!result<color> = 'purple';
             }
-            elsif $season eq 'Advent' {
+            elsif $tday.season eq 'Advent' {
                 if $!advent-blue {
                     $!result<color> = 'blue';
                 }
@@ -155,21 +162,17 @@ submethod TWEAK {
     # the day of the week.
 
     if $!result<prec> == 5 { # An ordinary Sunday
-        if $christmas-point == $advent-sunday {
+        if $tday.christmas-point == $tday.advent-sunday {
             $!result<name> = 'Advent Sunday';
             $!result<color> = 'white';
         }
-        elsif $christmas-point == $advent-sunday -7 {
+        elsif $tday.christmas-point == $tday.advent-sunday -7 {
             $!result<name> = 'Christ the King';
             $!result<color> = 'white';
         }
     }
 
-    if $debug {
-        note "DEBUG: dumping var \$result hash:";
-        #note $result.raku;
-        note $!result.raku;
-    }
+    note "DEBUG: result hash: |{$!result.raku}|" if $debug;
 
     =begin comment
     for $!result.kv -> $k, $v {
@@ -195,16 +198,20 @@ submethod TWEAK {
     # all above here belongs to Date::Liturgical::Christian
     #======================================================
 
-=end comment
+#=end comment
     # line 297
 }
 
-
-
-=begin comment
 method color  { self.result<color> // '' }
 method name   { self.result<name> // '' }
 method season { self.result<season> // '' }
+# for debugging
+method ep     { self.result<ep> // '' }
+method cp     { self.result<cp> // '' }
+method ad     { self.result<ad> // '' }
+
+
+=begin comment
 method prec   { self.result<prec> // '' }
 =end comment
 
@@ -223,3 +230,13 @@ sub from-index-rel-christmas($index --> List) is export {
     my $d = $md mod 100;
     $m, $d
 }
+
+sub get-possibles($feast --> Hash) {
+    my %result;
+    %result<name> = $feast.name;
+    %result<prec> = $feast.prec;
+    %result
+}
+
+
+

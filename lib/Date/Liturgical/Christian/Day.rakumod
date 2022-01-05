@@ -1,13 +1,14 @@
 use Date::Christian::Advent;
 use Date::Easter;
 use Date::Liturgical::Christian::Feasts;
+use Date::Liturgical::Christian::Feast;
 
-unit class Date::Liturgical::Christian::Day is Date; 
+unit class Date::Liturgical::Christian::Day is Date;
 # a child class of Date
 
 my $debug = 0;
 
-multi method new($year, $month, $day, 
+multi method new($year, $month, $day,
                  :$tradition!,
                  :$advent-blue!,
                  :$bvm-blue!,
@@ -27,13 +28,16 @@ has $.bvm-blue    = 0;
 has $.rose        = 0;
 
 # other attrs
-has Hash $.result;
 has $.Easter;
 has $.martyr;
 
 has $.weekno;
 has $.season;
 has @.possibles;
+has $.easter-point;
+has $.christmas-point;
+has $.advent-sunday; # TODO this should be days before Christmas expressed as a negative number!
+
 
 submethod TWEAK {
     my $days = self.day-of-year;
@@ -52,8 +56,8 @@ submethod TWEAK {
     #  December 25, the Feast of our Lord's Nativity or Christmas
     #  Day."
 
-    my Int $easter-point = $days - $!Easter.day-of-year;
-    my Int $christmas-point;
+    $!easter-point  = $days - $!Easter.day-of-year;
+    $!advent-sunday = Advent-Sunday($y).day-of-year - Date.new($y, 12, 25).day-of-year;;
 
     # We will store the amount of time until (-ve) or since (+ve)
     # Christmas in $christmas-point. Let's make the cut-off date the
@@ -61,59 +65,52 @@ submethod TWEAK {
     # after that, it avoids the problems of considering leap years.
 
     if $m > 2 {
-        $christmas-point = $days - Date.new($y, 12, 25).day-of-year;
+        $!christmas-point = $days - Date.new($y, 12, 25).day-of-year;
     }
     else {
-        $christmas-point = $days - Date.new($y-1, 12, 25).day-of-year;
+        $!christmas-point = $days - Date.new($y-1, 12, 25).day-of-year;
     }
 
     # First, figure out the season.
     my $season;
     my $weekno;
 
-    my $advent-sunday = Advent-Sunday($y).day-of-year;
-
-    #if $easter-point > -47 && $easter-point < 0 {
-    if  -47 < $easter-point < 0 {
+    # 1
+    if -47 < $!easter-point < 0 {
         $season = 'Lent';
-        $weekno = ($easter-point+50)/7;
-        $weekno = $weekno.Int;
+        $weekno = ($!easter-point + 50) div 7;
         # FIXME: The ECUSA calendar seems to indicate that Easter Eve ends
         # Lent *and* begins the Easter season. I'm not sure how. Maybe it's
         # in both? Maybe the daytime is in Lent and the night is in Easter?
     }
-    #elsif $easter-point >= 0 && $easter-point <= 49 {
-    elsif 0 <= $easter-point <= 49 {
+    # 2
+    elsif 0 <= $!easter-point <= 49 {
         # yes, this is correct: Pentecost itself is in Easter season;
         # Pentecost season actually begins on the day after Pentecost.
         # Its proper name is "The Season After Pentecost".
         $season = 'Easter';
-        $weekno = $easter-point/7;
-        $weekno = $weekno.Int;
+        $weekno = $!easter-point div 7;
     }
-    #elsif $christmas-point >= $advent-sunday && $christmas-point <= -1 {
-    elsif $advent-sunday <= $christmas-point <= -1 {
+    # 3
+    elsif $!advent-sunday <= $!christmas-point <= -1 {
         $season = 'Advent';
-        $weekno = 1+($christmas-point-$advent-sunday)/7;
-        $weekno = $weekno.Int;
+        $weekno = 1 + ($!christmas-point - $!advent-sunday) div 7;
     }
-    #elsif $christmas-point >= 0 && $christmas-point <= 11 {
-    elsif 0 <= $christmas-point <= 11 {
+    # 4
+    elsif 0 <= $!christmas-point <= 11 {
         # The Twelve Days of Christmas.
         $season = 'Christmas';
-        $weekno = 1+$christmas-point/7;
-        $weekno = $weekno.Int;
+        $weekno = 1 + $!christmas-point div 7;
     }
-    #elsif $christmas-point >= 12 && $easter-point <= -47 {
-    elsif 12 <= $easter-point <= -47 {
+    # 5
+    elsif $!christmas-point >= 12 && $!easter-point <= -47 {
         $season = 'Epiphany';
-        $weekno = 1+($christmas-point-12)/7;
-        $weekno = $weekno.Int;
+        $weekno = 1 + ($!christmas-point - 12) div 7;
     }
+    # 6
     else {
         $season = 'Pentecost';
-        $weekno = 1+($easter-point-49)/7;
-        $weekno = $weekno.Int;
+        $weekno = 1 + ($!easter-point - 49) div 7;
     }
 
     # Now, look for feasts.
@@ -128,16 +125,38 @@ submethod TWEAK {
         die "FATAL: Unknown tradition '$!tradition'";
     }
 
-    my $feast-from-Easter    = %feasts{$easter-point}:exists   ?? %feasts{$easter-point}   !! 0;
-    my $feast-from-Christmas = %feasts{10000+100*$m+$d}:exists ?? %feasts{10000+100*$m+$d} !! 0;
+    my $eidx = $!easter-point;
+    my $cidx = 10000+100*$m+$d;
+    my $feast-from-Easter    = %feasts{$eidx}:exists ?? %feasts{$eidx} !! 0;
+    my $feast-from-Christmas = %feasts{$cidx}:exists ?? %feasts{$cidx} !! 0;
 
-    @possibles.push($feast-from-Easter)    if $feast-from-Easter;
-    @possibles.push($feast-from-Christmas) if $feast-from-Christmas;
+    my ($ffe, $ffc);
+    if $feast-from-Easter {
+        $ffe = Date::Liturgical::Christian::Feast.new: :index($eidx),
+               :name(%feasts{$eidx}<name>), :prec(%feasts{$eidx}<prec>);
+    }
+    if $feast-from-Christmas {
+        $ffc = Date::Liturgical::Christian::Feast.new: :index($cidx),
+               :name(%feasts{$cidx}<name>), :prec(%feasts{$cidx}<prec>);
+    }
+    if $ffc and $ffe and $debug {
+        note "DEBUG: Two feasts on the same day: '{$ffe.raku}' and '{$ffc.raku}'.";
+    }
+
+
+    @possibles.push($ffe) if $feast-from-Easter;
+    @possibles.push($ffc) if $feast-from-Christmas;
 
     if $debug and @possibles {
         note "DEBUG: dumping \@possibles array:";
         note @possibles.raku;
     }
+
+    # TODO It seems that if two feasts appear on the same day, the
+    # lower-precedence feast is transferred to the next day. But
+    # Sundays are NOT transferred.  Check the output of good testing
+    # to see how that works in practice, but, first, I have to get the
+    # season algorithm working!
 
     =begin comment
     # Maybe transferred from yesterday.
@@ -161,15 +180,20 @@ submethod TWEAK {
     =end comment
 
     # Maybe a Sunday.
-    @possibles.push({ prec => 5, name => "$season $weekno" })
-        if $dow == 7;
+    if $dow == 7 {
+        my $fs = Date::Liturgical::Christian::Feast.new: # :index($cidx),
+                 :name("$season $weekno"), :prec(5);
+        @possibles.push($fs);
+        #@possibles.push({ prec => 5, name => "$season $weekno" })
+    }
 
     # So, which event takes priority?
 
     # TODO fix this:
     # sort highest to lowest
     #@possibles = sort { $b->{prec} <=> $a->{prec} } @possibles;
-    @possibles = sort { $^b<prec> <=> $^a<prec> }, @possibles;
+    #@possibles = sort { $^b<prec> <=> $^a<prec> }, @possibles;
+    @possibles = sort { $^b.prec <=> $^a.prec }, @possibles;
     if 0 and @possibles {
         note "DEBUG: dumping sorted \@possibles array:";
         note @possibles.raku;
@@ -199,4 +223,3 @@ method name   { self.result<name> // '' }
 method season { self.result<season> // '' }
 method prec   { self.result<prec> // '' }
 =end comment
-
