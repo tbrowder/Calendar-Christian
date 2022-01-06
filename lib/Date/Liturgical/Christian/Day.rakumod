@@ -41,10 +41,11 @@ has $.advent-sunday; # this is days before Christmas expressed as a negative num
 
 
 submethod TWEAK {
-    my $days = self.day-of-year;
     my $y    = self.year;
     my $m    = self.month;
     my $d    = self.day;
+    # my $days = Date_to_Days($y, $m, $d);
+    my $days = date2days self;
     my $dow  = self.day-of-week;
 
     $!Easter = Easter($y);
@@ -57,7 +58,9 @@ submethod TWEAK {
     #  December 25, the Feast of our Lord's Nativity or Christmas
     #  Day."
 
-    $!easter-point  = $days - $!Easter.day-of-year;
+    # my $easter = Date_to_Days($y, Date_Easter($y));
+
+    $!easter-point  = $days - date2days($!Easter);
     $!advent-sunday = Advent-Sunday($y).day-of-year - Date.new($y, 12, 25).day-of-year;;
 
     # We will store the amount of time until (-ve) or since (+ve)
@@ -65,11 +68,19 @@ submethod TWEAK {
     # end of February, since we'll be dealing with Easter-based dates
     # after that, it avoids the problems of considering leap years.
 
+=begin comment
+  if ($m>2) {
+      $christmas_point = $days - Date_to_Days($y, 12, 25);
+  } else {
+      $christmas_point = $days - Date_to_Days($y-1, 12, 25);
+  }
+=end comment
+
     if $m > 2 {
-        $!christmas-point = $days - Date.new($y, 12, 25).day-of-year;
+        $!christmas-point = $days - date2days($y, 12, 25);
     }
     else {
-        $!christmas-point = $days - Date.new($y-1, 12, 25).day-of-year;
+        $!christmas-point = $days - date2days($y-1, 12, 25);
     }
 
     # First, figure out the season.
@@ -158,6 +169,7 @@ submethod TWEAK {
     # Note Sundays are never transferred.
 
     =begin comment
+      # my ($yestery, $yesterm, $yesterd) = Add_Delta_Days(1, 1, 1, $days-2);
     # Maybe transferred from yesterday.
     if not $!transferred { # don't go round infinitely
         my Date $yesterday = self - 1; #$!date - 1;
@@ -212,6 +224,23 @@ submethod TWEAK {
     $!season    = $season;
     $!weekno    = $weekno;
     @!possibles = @possibles;
+}
+
+multi sub date2days(Date $d) is export {
+    date2days $d.year, $d.month, $d.day
+}
+
+multi sub date2days($year, $month, $day) is export {
+    # same as Perl's Date_to_Days function
+    # calc days from 1,1,1 AD
+    my $d0 = DateTime.new(:1year, :1month, :1day);
+    DateTime.new(:$year, :$month, :$day).julian-date.Int - $d0.julian-date.Int + 1
+}
+
+sub days2date($days --> Date) is export {
+    # same as Perl's Add_Delta_Days function
+    my $d0 = Date.new: 1, 1, 1;
+    $d0 + $days - 1
 }
 
 

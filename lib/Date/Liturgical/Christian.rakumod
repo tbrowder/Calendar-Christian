@@ -1,4 +1,4 @@
-use Date::Christian::Advent;
+
 use Date::Easter;
 use Date::Liturgical::Christian::Feasts;
 use Date::Liturgical::Christian::Feast;
@@ -14,7 +14,7 @@ multi method new($year, $month, $day,
                  :$tradition   = 'ECUSA', # Episcopal Church USA
                  :$advent-blue = 0,
                  :$bvm-blue    = 0,
-                 :$rose        = 0,
+
                 ) {
     # Convert the input values to a Date object. Following code thanks
     # to @lizmat on IRC #raku, 2021-11-18, 06:08
@@ -43,6 +43,9 @@ has $.martyr = '';
 
 has Date $!Easter;
 has Hash $.result;
+
+# TODO ensure the Perl version's Date_to_Days function are converted to Raku's DateTime::Julian
+#      to convert a Julian day back to a Date the Perl version uses Add_Delta_Days
 
 submethod TWEAK {
     my $days = self.day-of-year;
