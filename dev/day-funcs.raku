@@ -1,7 +1,6 @@
 #!/usr/bin/env raku
 
 use Test;
-use DateTime::Julian;
 
 # some test data for date2days (Date_To_Days)
 # 1,1,1 returns 1
@@ -46,8 +45,8 @@ is $days, 729510;
 
 sub date2days($year, $month, $day) is export {
     # calc days from 1,1,1 AD
-    my $d0 = DateTime.new(:1year, :1month, :1day);
-    DateTime.new(:$year, :$month, :$day).julian-date - $d0.julian-date + 1
+    my $d0 = Date.new(1, 1, 1);
+    Date.new($year, $month, $day).daycount - $d0.daycount + 1
 }
 
 sub days2date($days --> Date) is export {
