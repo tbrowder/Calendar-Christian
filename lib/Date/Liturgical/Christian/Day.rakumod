@@ -231,18 +231,15 @@ multi sub date2days(Date $d) is export {
 }
 
 multi sub date2days($year, $month, $day) is export {
-    # same as Perl's Date_to_Days function
     # calc days from 1,1,1 AD
-    my $d0 = DateTime.new(:1year, :1month, :1day);
-    DateTime.new(:$year, :$month, :$day).julian-date.Int - $d0.julian-date.Int + 1
+    my $d0 = Date.new(1, 1, 1);
+    Date.new($year, $month, $day).daycount - $d0.daycount + 1
 }
 
 sub days2date($days --> Date) is export {
-    # same as Perl's Add_Delta_Days function
     my $d0 = Date.new: 1, 1, 1;
     $d0 + $days - 1
 }
-
 
 =begin comment
 method color  { self.result<color> // '' }
