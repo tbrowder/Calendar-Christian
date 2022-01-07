@@ -1,0 +1,368 @@
+# copied from 2006
+# updated from umc data
+# remove this line when finished
+2021-01-01      white  Christmas Holy Name
+2021-01-02      green  Christmas
+2021-01-03      green  Christmas
+2021-01-04      green  Christmas
+2021-01-05      green  Christmas
+2021-01-06      white   Epiphany Epiphany
+2021-01-07      green   Epiphany
+2021-01-08      green   Epiphany Epiphany 1
+2021-01-09      green   Epiphany
+2021-01-10      white   Epiphany William Laud
+2021-01-11      green   Epiphany
+2021-01-12      green   Epiphany
+2021-01-13      white   Epiphany Hilary
+2021-01-14      green   Epiphany
+2021-01-15      green   Epiphany Epiphany 2
+2021-01-16      green   Epiphany
+2021-01-17      white   Epiphany Antony
+2021-01-18      white   Epiphany Confession of Saint Peter
+2021-01-19      white   Epiphany Wulfstan
+2021-01-20      white   Epiphany Fabian
+2021-01-21      white   Epiphany Agnes
+2021-01-22      green   Epiphany Epiphany 3
+2021-01-23      white   Epiphany Phillips Brooks
+2021-01-24      green   Epiphany
+2021-01-25      white   Epiphany Conversion of Saint Paul
+2021-01-26      white   Epiphany Timothy and Titus
+2021-01-27      white   Epiphany John Chrysostom
+2021-01-28      white   Epiphany Thomas Aquinas
+2021-01-29      green   Epiphany Epiphany 4
+2021-01-30      green   Epiphany
+2021-01-31      green   Epiphany
+2021-02-01      green   Epiphany
+2021-02-02      white   Epiphany Presentation of our Lord
+2021-02-03      white   Epiphany Anskar
+2021-02-04      white   Epiphany Cornelius
+2021-02-05      green   Epiphany Epiphany 5
+2021-02-06        red   Epiphany Martyrs of Japan (transferred)
+2021-02-07      green   Epiphany
+2021-02-08      green   Epiphany
+2021-02-09      green   Epiphany
+2021-02-10      green   Epiphany
+2021-02-11      green   Epiphany
+2021-02-12      green   Epiphany Epiphany 6
+2021-02-13      white   Epiphany Absalom Jones
+2021-02-14      white   Epiphany Cyril and Methodius
+2021-02-15      white   Epiphany Thomas Bray
+2021-02-16      green   Epiphany
+2021-02-17      green   Epiphany
+2021-02-18      green   Epiphany
+2021-02-19      green   Epiphany Epiphany 7
+2021-02-20      green   Epiphany
+2021-02-21      green   Epiphany
+2021-02-22      green   Epiphany
+2021-02-23        red   Epiphany Polycarp
+2021-02-24      white   Epiphany Matthias
+2021-02-25      green   Epiphany
+2021-02-26      green   Epiphany Epiphany 8
+2021-02-27      white   Epiphany George Herbert
+2021-02-28      white   Epiphany Shrove Tuesday
+2021-03-01     purple       Lent Ash Wednesday
+2021-03-02      white       Lent Chad
+2021-03-03      white       Lent John and Charles Wesley
+2021-03-04     purple       Lent
+2021-03-05     purple       Lent Lent 1
+2021-03-06     purple       Lent
+2021-03-07        red       Lent Perpetua and her companions
+2021-03-08      white       Lent Gregory of Nyssa
+2021-03-09      white       Lent Gregory the Great
+2021-03-10     purple       Lent
+2021-03-11     purple       Lent
+2021-03-12     purple       Lent Lent 2
+2021-03-13     purple       Lent
+2021-03-14     purple       Lent
+2021-03-15     purple       Lent
+2021-03-16     purple       Lent
+2021-03-17      white       Lent Patrick
+2021-03-18      white       Lent Cyril
+2021-03-19       rose       Lent Lent 3
+2021-03-20      white       Lent Joseph (transferred)
+2021-03-21      white       Lent Thomas Ken
+2021-03-22      white       Lent James De Koven
+2021-03-23      white       Lent Gregory the Illuminator
+2021-03-24     purple       Lent
+2021-03-25       blue       Lent Annunciation of our Lord
+2021-03-26     purple       Lent Lent 4
+2021-03-27      white       Lent Charles Henry Brent
+2021-03-28     purple       Lent
+2021-03-29      white       Lent John Keble
+2021-03-30     purple       Lent
+2021-03-31      white       Lent John Donne
+2021-04-01      white       Lent Frederick Denison Maurice
+2021-04-02     purple       Lent Lent 5
+2021-04-03      white       Lent Richard of Chichester
+2021-04-04     purple       Lent
+2021-04-05     purple       Lent
+2021-04-06     purple       Lent
+2021-04-07     purple       Lent
+2021-04-08      white       Lent William Augustus Muhlenberg
+2021-04-09     purple       Lent Lent 6
+2021-04-10      white       Lent William Law (transferred)
+2021-04-11      white       Lent George Augustus Selwyn
+2021-04-12     purple       Lent
+2021-04-13     purple       Lent
+2021-04-14     purple       Lent Good Friday
+2021-04-15     purple       Lent Easter Eve
+2021-04-16      white     Easter Easter
+2021-04-17      green     Easter
+2021-04-18      green     Easter
+2021-04-19        red     Easter Alphege
+2021-04-20      green     Easter
+2021-04-21      white     Easter Anselm
+2021-04-22      green     Easter
+2021-04-23      green     Easter Easter 1
+2021-04-24      green     Easter
+2021-04-25      white     Easter Mark the Evangelist
+2021-04-26      green     Easter
+2021-04-27      green     Easter
+2021-04-28      green     Easter
+2021-04-29      white     Easter Catherine of Siena
+2021-04-30      green     Easter Easter 2
+2021-05-01      white     Easter Philip and James
+2021-05-02      white     Easter Athanasius
+2021-05-03      green     Easter
+2021-05-04      white     Easter Monnica
+2021-05-05      green     Easter
+2021-05-06      green     Easter
+2021-05-07      green     Easter Easter 3
+2021-05-08      white     Easter Julian of Norwich
+2021-05-09      white     Easter Gregory of Nazianzus
+2021-05-10      green     Easter
+2021-05-11      green     Easter
+2021-05-12      green     Easter
+2021-05-13      green     Easter
+2021-05-14      green     Easter Easter 4
+2021-05-15      green     Easter
+2021-05-16      green     Easter
+2021-05-17      green     Easter
+2021-05-18      green     Easter
+2021-05-19      white     Easter Dustan
+2021-05-20      white     Easter Alcuin
+2021-05-21      green     Easter Easter 5
+2021-05-22      green     Easter
+2021-05-23      green     Easter
+2021-05-24      white     Easter Jackson Kemper
+2021-05-25      white     Easter Ascension
+2021-05-26      white     Easter Augustine of Canterbury
+2021-05-27      green     Easter
+2021-05-28      green     Easter Easter 6
+2021-05-29      green     Easter
+2021-05-30      green     Easter
+2021-05-31       blue     Easter Visitation of Mary
+2021-06-01      white     Easter Justin
+2021-06-02        red     Easter Martyrs of Lyons
+2021-06-03        red     Easter Martyrs of Uganda
+2021-06-04        red     Easter Pentecost
+2021-06-05      white  Pentecost Book of Common Prayer
+2021-06-06      white  Pentecost Boniface (transferred)
+2021-06-07      green  Pentecost
+2021-06-08      green  Pentecost
+2021-06-09      white  Pentecost Columba
+2021-06-10      white  Pentecost Ephrem of Edessa
+2021-06-11      white  Pentecost Trinity
+2021-06-12      green  Pentecost
+2021-06-13      green  Pentecost
+2021-06-14      white  Pentecost Basil the Great
+2021-06-15      green  Pentecost
+2021-06-16      white  Pentecost Joseph Butler
+2021-06-17      green  Pentecost
+2021-06-18      green  Pentecost Pentecost 3
+2021-06-19      white  Pentecost Bernard Mizeki (transferred)
+2021-06-20      green  Pentecost
+2021-06-21      green  Pentecost
+2021-06-22        red  Pentecost Alban
+2021-06-23      green  Pentecost
+2021-06-24      white  Pentecost Nativity of John the Baptist
+2021-06-25      green  Pentecost Pentecost 4
+2021-06-26      green  Pentecost
+2021-06-27      green  Pentecost
+2021-06-28      white  Pentecost Irenaeus
+2021-06-29        red  Pentecost Peter and Paul
+2021-06-30      green  Pentecost
+2021-07-01      green  Pentecost
+2021-07-02      green  Pentecost Pentecost 5
+2021-07-03      green  Pentecost
+2021-07-04      white  Pentecost Independence Day
+2021-07-05      green  Pentecost
+2021-07-06      green  Pentecost
+2021-07-07      green  Pentecost
+2021-07-08      green  Pentecost
+2021-07-09      green  Pentecost Pentecost 6
+2021-07-10      green  Pentecost
+2021-07-11      white  Pentecost Benedict of Nursia
+2021-07-12      green  Pentecost
+2021-07-13      green  Pentecost
+2021-07-14      green  Pentecost
+2021-07-15      green  Pentecost
+2021-07-16      green  Pentecost Pentecost 7
+2021-07-17      white  Pentecost William White
+2021-07-18      green  Pentecost
+2021-07-19      green  Pentecost
+2021-07-20      green  Pentecost
+2021-07-21      green  Pentecost
+2021-07-22      white  Pentecost Mary Magdalene
+2021-07-23      green  Pentecost Pentecost 8
+2021-07-24      white  Pentecost Thomas a Kempis
+2021-07-25      white  Pentecost James the Apostle
+2021-07-26       blue  Pentecost Parents of the Blessed Virgin Mary
+2021-07-27      white  Pentecost William Reed Huntington
+2021-07-28      green  Pentecost
+2021-07-29      white  Pentecost Mary and Martha
+2021-07-30      green  Pentecost Pentecost 9
+2021-07-31      white  Pentecost Joseph of Arimathaea
+2021-08-01      white  Pentecost Aidan
+2021-08-02      green  Pentecost
+2021-08-03      green  Pentecost
+2021-08-04      green  Pentecost
+2021-08-05      green  Pentecost
+2021-08-06      green  Pentecost Pentecost 10
+2021-08-07      white  Pentecost Transfiguration (transferred)
+2021-08-08      white  Pentecost Dominic
+2021-08-09      green  Pentecost
+2021-08-10        red  Pentecost Lawrence
+2021-08-11      white  Pentecost Clare
+2021-08-12      green  Pentecost
+2021-08-13      green  Pentecost Pentecost 11
+2021-08-14      white  Pentecost Jeremy Taylor (transferred)
+2021-08-15       blue  Pentecost Mary the Virgin
+2021-08-16      green  Pentecost
+2021-08-17      green  Pentecost
+2021-08-18      white  Pentecost William Porcher DuBose
+2021-08-19      green  Pentecost
+2021-08-20      green  Pentecost Pentecost 12
+2021-08-21      white  Pentecost Bernard (transferred)
+2021-08-22      green  Pentecost
+2021-08-23      green  Pentecost
+2021-08-24      white  Pentecost Bartholemew
+2021-08-25      white  Pentecost Louis
+2021-08-26      green  Pentecost
+2021-08-27      green  Pentecost Pentecost 13
+2021-08-28      white  Pentecost Augustine of Hippo
+2021-08-29      green  Pentecost
+2021-08-30      green  Pentecost
+2021-08-31      green  Pentecost
+2021-09-01      green  Pentecost
+2021-09-02        red  Pentecost Martyrs of New Guinea
+2021-09-03      green  Pentecost Pentecost 14
+2021-09-04      green  Pentecost
+2021-09-05      green  Pentecost
+2021-09-06      green  Pentecost
+2021-09-07      green  Pentecost
+2021-09-08      green  Pentecost
+2021-09-09      green  Pentecost
+2021-09-10      green  Pentecost Pentecost 15
+2021-09-11      green  Pentecost
+2021-09-12      white  Pentecost John Henry Hobart
+2021-09-13      white  Pentecost Cyprian
+2021-09-14      white  Pentecost Holy Cross
+2021-09-15      green  Pentecost
+2021-09-16      white  Pentecost Ninian
+2021-09-17      green  Pentecost Pentecost 16
+2021-09-18      white  Pentecost Edward Bouverie Pusey
+2021-09-19      white  Pentecost Theodore of Tarsus
+2021-09-20        red  Pentecost John Coleridge Patteson and companions
+2021-09-21        red  Pentecost Matthew
+2021-09-22      green  Pentecost
+2021-09-23      green  Pentecost
+2021-09-24      green  Pentecost Pentecost 17
+2021-09-25      white  Pentecost Sergius
+2021-09-26      white  Pentecost Lancelot Andrewes
+2021-09-27      green  Pentecost
+2021-09-28      green  Pentecost
+2021-09-29      white  Pentecost Michael and All Angels
+2021-09-30      white  Pentecost Jerome
+2021-10-01      green  Pentecost Pentecost 18
+2021-10-02      white  Pentecost Remigius (transferred)
+2021-10-03      green  Pentecost
+2021-10-04      white  Pentecost Francis of Assisi
+2021-10-05      green  Pentecost
+2021-10-06      white  Pentecost William Tyndale
+2021-10-07      green  Pentecost
+2021-10-08      green  Pentecost Pentecost 19
+2021-10-09      white  Pentecost Robert Grosseteste
+2021-10-10      green  Pentecost
+2021-10-11      green  Pentecost
+2021-10-12      green  Pentecost
+2021-10-13      green  Pentecost
+2021-10-14      green  Pentecost
+2021-10-15      green  Pentecost Pentecost 20
+2021-10-16        red  Pentecost Hugh Latimer, Nicholas Ridley, Thomas Cranmer
+2021-10-17        red  Pentecost Ignatius
+2021-10-18      white  Pentecost Luke
+2021-10-19      white  Pentecost Henry Martyn
+2021-10-20      green  Pentecost
+2021-10-21      green  Pentecost
+2021-10-22      green  Pentecost Pentecost 21
+2021-10-23        red  Pentecost James of Jerusalem
+2021-10-24      green  Pentecost
+2021-10-25      green  Pentecost
+2021-10-26      white  Pentecost Alfred the Great
+2021-10-27      green  Pentecost
+2021-10-28      white  Pentecost Simon and Jude
+2021-10-29      green  Pentecost Pentecost 22
+2021-10-30        red  Pentecost James Hannington and his companions (transferred)
+2021-10-31      green  Pentecost
+2021-11-01      white  Pentecost All Saints
+2021-11-02      white  Pentecost All Faithful Departed
+2021-11-03      white  Pentecost Richard Hooker
+2021-11-04      green  Pentecost
+2021-11-05      green  Pentecost Pentecost 23
+2021-11-06      green  Pentecost
+2021-11-07      white  Pentecost Willibrord
+2021-11-08      green  Pentecost
+2021-11-09      green  Pentecost
+2021-11-10      white  Pentecost Leo the Great
+2021-11-11      white  Pentecost Martin of Tours
+2021-11-12      green  Pentecost Pentecost 24
+2021-11-13      white  Pentecost Charles Simeon (transferred)
+2021-11-14      white  Pentecost Consecration of Samuel Seabury
+2021-11-15      green  Pentecost
+2021-11-16      white  Pentecost Margaret
+2021-11-17      white  Pentecost Hugh
+2021-11-18      white  Pentecost Hilda
+2021-11-19      white  Pentecost Christ the King
+2021-11-20      white  Pentecost Elizabeth of Hungary (transferred)
+2021-11-21      green  Pentecost
+2021-11-22      green  Pentecost
+2021-11-23      white  Pentecost Clement of Rome
+2021-11-24      green  Pentecost
+2021-11-25      green  Pentecost
+2021-11-26      white     Advent Advent Sunday
+2021-11-27       blue     Advent
+2021-11-28       blue     Advent
+2021-11-29       blue     Advent
+2021-11-30      white     Advent Andrew
+2021-12-01      white     Advent Nicholas Ferrar
+2021-12-02      white     Advent Channing Moore Williams
+2021-12-03       rose     Advent Advent 2
+2021-12-04      white     Advent John of Damascus
+2021-12-05      white     Advent Clement of Alexandria
+2021-12-06      white     Advent Nicholas
+2021-12-07      white     Advent Ambrose
+2021-12-08       blue     Advent
+2021-12-09       blue     Advent
+2021-12-10       blue     Advent Advent 3
+2021-12-11       blue     Advent
+2021-12-12       blue     Advent
+2021-12-13       blue     Advent
+2021-12-14       blue     Advent
+2021-12-15       blue     Advent
+2021-12-16       blue     Advent
+2021-12-17       blue     Advent Advent 4
+2021-12-18       blue     Advent
+2021-12-19       blue     Advent
+2021-12-20       blue     Advent
+2021-12-21      white     Advent Thomas
+2021-12-22       blue     Advent
+2021-12-23       blue     Advent
+2021-12-24       blue     Advent Advent 5
+2021-12-25      white  Christmas Christmas
+2021-12-26        red  Christmas Stephen
+2021-12-27      white  Christmas John the Apostle
+2021-12-28        red  Christmas Holy Innocents
+2021-12-29      green  Christmas
+2021-12-30      green  Christmas
+2021-12-31      green  Christmas Christmas 1

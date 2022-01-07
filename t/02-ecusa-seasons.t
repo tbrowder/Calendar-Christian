@@ -6,7 +6,6 @@ plan 365;
 
 my $ifil = "./t/data/2006-ecusa.data";
 
-
 my $n = 0;
 for $ifil.IO.lines -> $line is copy {
     ++$n;

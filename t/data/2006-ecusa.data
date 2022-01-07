@@ -1,17 +1,22 @@
-# from the Perl module
-2006-01-01      white  Christmas Holy Name
-2006-01-02      green  Christmas
-2006-01-03      green  Christmas
-2006-01-04      green  Christmas
-2006-01-05      green  Christmas
-2006-01-06      white   Epiphany Epiphany
+# originally from the Perl module
+# the data were found to be in error as to the
+# date of Advent 1 as compared to the iecc lectionary
+# comments following a '#' are from the correct data
+# note also some of the non-UMC feasts have been removed with no attempt to correct ECUSA data
+# this now is used to check the season calculation only and will need more work for a full ECUSA test
+2006-01-01      white  Christmas Holy Name # Sunday, first Sunday after Christmas, 7th day of Christmas
+2006-01-02      green  Christmas # 8th day
+2006-01-03      green  Christmas # 9th day
+2006-01-04      green  Christmas # 10th day
+2006-01-05      green  Christmas # 11th day
+2006-01-06      white   Epiphany Epiphany # (12th day of Christmas)
 2006-01-07      green   Epiphany
 2006-01-08      green   Epiphany Epiphany 1
 2006-01-09      green   Epiphany
-2006-01-10      white   Epiphany William Laud
+2006-01-10      green   Epiphany
 2006-01-11      green   Epiphany
 2006-01-12      green   Epiphany
-2006-01-13      white   Epiphany Hilary
+2006-01-13      green   Epiphany
 2006-01-14      green   Epiphany
 2006-01-15      green   Epiphany Epiphany 2
 2006-01-16      green   Epiphany
@@ -328,35 +333,35 @@
 2006-11-23      white  Pentecost Clement of Rome
 2006-11-24      green  Pentecost
 2006-11-25      green  Pentecost
-2006-11-26      white     Advent Advent Sunday
-2006-11-27       blue     Advent
-2006-11-28       blue     Advent
-2006-11-29       blue     Advent
-2006-11-30      white     Advent Andrew
-2006-12-01      white     Advent Nicholas Ferrar
-2006-12-02      white     Advent Channing Moore Williams
-2006-12-03       rose     Advent Advent 2
+2006-11-26      white  Pentecost # original error: Advent Sunday
+2006-11-27       blue  Pentecost # original error: Advent
+2006-11-28       blue  Pentecost # original error: Advent
+2006-11-29       blue  Pentecost # original error: Advent
+2006-11-30      white  Pentecost Andrew # original error: Advent
+2006-12-01      white  Pentecost Nicholas Ferrar # original error: Advent
+2006-12-02      white  Pentecost Channing Moore Williams # original error: Advent
+2006-12-03       rose     Advent Advent Sunday
 2006-12-04      white     Advent John of Damascus
 2006-12-05      white     Advent Clement of Alexandria
 2006-12-06      white     Advent Nicholas
 2006-12-07      white     Advent Ambrose
 2006-12-08       blue     Advent
 2006-12-09       blue     Advent
-2006-12-10       blue     Advent Advent 3
+2006-12-10       blue     Advent Advent 2 # original: 3
 2006-12-11       blue     Advent
 2006-12-12       blue     Advent
 2006-12-13       blue     Advent
 2006-12-14       blue     Advent
 2006-12-15       blue     Advent
 2006-12-16       blue     Advent
-2006-12-17       blue     Advent Advent 4
+2006-12-17       blue     Advent Advent 3 # original: 4
 2006-12-18       blue     Advent
 2006-12-19       blue     Advent
 2006-12-20       blue     Advent
 2006-12-21      white     Advent Thomas
 2006-12-22       blue     Advent
 2006-12-23       blue     Advent
-2006-12-24       blue     Advent Advent 5
+2006-12-24       blue     Advent Advent 4 # original: 5
 2006-12-25      white  Christmas Christmas
 2006-12-26        red  Christmas Stephen
 2006-12-27      white  Christmas John the Apostle
