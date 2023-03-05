@@ -28,7 +28,7 @@ from the ECUSA.
 This module will return the name, season, week number and liturgical
 color for any day in the Gregorian calendar. It may 
 eventually support the liturgical calendars of other churches (but
-only if their is any interest shown by any users).
+only if there is any interest shown by any users).
 At present it only knows the calendar for the United Methodist Church.
 
 If you find bugs, or if you have information on the calendar of
@@ -135,7 +135,7 @@ Returns the year number which was used to construct the object.
 
 =head1 COPYRIGHT AND LICENSE
 
-=item Copyright © 2021 Tom Browder
+=item Copyright © 202-2023 Tom Browder
 =item Copyright © 2006 Thomas Thurman
 
 This library is free software; you may redistribute it or modify it
