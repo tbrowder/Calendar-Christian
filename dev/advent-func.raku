@@ -31,13 +31,11 @@ while $d.year < $year+1 {
     last if $ndays and $doy > $ndays;
 
     # get and print the current day's data 
-    # using my code
     my $ld = Date::Liturgical::Christian.new: $d.year, $d.month, $d.day;
     my $epr = $ld.ep;
     my $cpr = $ld.cp;
     my $adr = $ld.ad;
 
-    # using the original code (known now to be erroneous due an invalid Advent Sunday calculation
     my $epp = easter-point $ld;
     my $cpp = christmas-point $ld;
     my $adp = advent $ld;
@@ -55,7 +53,7 @@ while $d.year < $year+1 {
     }
     if $adr != $adp {
         ++$err;
-        $msg ~= 'Ad ';
+        $msg ~= 'Ap ';
     }
 
     if $err {

@@ -19,8 +19,8 @@
     "Date::Liturgical::Christian::Day": "lib/Date/Liturgical/Christian/Day.rakumod",
     "Date::Liturgical::Christian::Feast": "lib/Date/Liturgical/Christian/Feast.rakumod",
     "Date::Liturgical::Christian::Feasts": "lib/Date/Liturgical/Christian/Feasts.rakumod",
-    "Date::Liturgical::Christian::Result": "lib/Date/Liturgical/Christian/Result.rakumod",
-    "Result": "lib/Result.rakumod"
+    "Date::Liturgical::Christian::Funcs": "lib/Date/Liturgical/Christian/Funcs.rakumod",
+    "Date::Liturgical::Christian::Result": "lib/Date/Liturgical/Christian/Result.rakumod"
   },
   "resources": [
   ],

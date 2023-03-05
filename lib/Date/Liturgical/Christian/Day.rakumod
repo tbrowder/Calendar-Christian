@@ -22,7 +22,7 @@ multi method new($year, $month, $day,
 }
 
 # constructor named options
-has $.tradition; #   = 'ECUSA'; # Episcopal Church USA #has $.tradition   = 'UMC'; # United Methodist Church
+has $.tradition; #   = 'UMC'; # Episcopal Church USA #has $.tradition   = 'UMC'; # United Methodist Church
 has $.advent-blue = 0;
 has $.bvm-blue    = 0;
 has $.rose        = 0;
