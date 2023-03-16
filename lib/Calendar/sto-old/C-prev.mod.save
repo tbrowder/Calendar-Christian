@@ -1,0 +1,259 @@
+use Date::Easter;
+use Date::Christian::Advent;
+
+unit module Calendar::Christian;
+
+=finish
+use Date::Easter;
+use Date::Liturgical::Christian::Feasts;
+use Date::Liturgical::Christian::Feast;
+use Date::Liturgical::Christian::Day;
+use Date::Liturgical::Christian::Result;
+
+unit class Date::Liturgical::Christian is Date;
+# a child class of Date
+
+my $debug = 0;
+
+multi method new($year, $month, $day,
+                 :$tradition   = 'ECUSA', # Episcopal Church USA
+                 :$advent-blue = 0,
+                 :$bvm-blue    = 0,
+
+                ) {
+    # Convert the input values to a Date object. Following code thanks
+    # to @lizmat on IRC #raku, 2021-11-18, 06:08
+    # (and on IRC #raku, 2021-03-29, 11:50)
+    self.Date::new($year, $month, $day);
+}
+
+# constructor named options
+has $.tradition   = 'ECUSA'; #   = 'ECUSA'; # Episcopal Church USA #has $.tradition   = 'UMC'; # United Methodist Church
+has $.advent-blue = 0;
+has $.bvm-blue    = 0;
+has $.rose        = 0;
+
+=begin comment
+# outputs for an input year, month, day:
+has $.name   is rw = '';
+has $.season = '';
+has $.color  = '';
+has $.bvm    = '';
+has $.weekno = '';
+=end comment
+
+=begin comment
+has $.martyr = '';
+=end comment
+
+has Date $!Easter;
+has Hash $.result;
+
+# TODO ensure the Perl version's Date_to_Days function are converted to Raku's DateTime::Julian
+#      to convert a Julian day back to a Date the Perl version uses Add_Delta_Days
+
+submethod TWEAK {
+    my $days = self.day-of-year;
+    my $y    = self.year;
+    my $m    = self.month;
+    my $d    = self.day;
+    my $dow  = self.day-of-week;
+
+    my $yesterday = self - 1;
+    my $yy    = $yesterday.year;
+    my $ym    = $yesterday.month;
+    my $yd    = $yesterday.day;
+
+    my $tradition   = $!tradition; #   = 'ECUSA'; # Episcopal Church USA #has $.tradition   = 'UMC'; # United Methodist Church
+    my $advent-blue = $!advent-blue;
+    my $bvm-blue    = $!bvm-blue;
+    my $rose        = $!rose;
+
+    $!Easter = Easter($y);
+
+    # get the possibles for today as well as for the previous day
+    my $yday = Date::Liturgical::Christian::Day.new: $yy, $ym, $yd, 
+                :$tradition, :$advent-blue, :$bvm-blue, :$rose, :yesterday;
+    my $tday = Date::Liturgical::Christian::Day.new: $y, $m, $d, 
+                :$tradition, :$advent-blue, :$bvm-blue, :$rose;
+
+    # also need the season and week number for each
+    my $yday-season = $yday.season;
+    my $yday-weekno = $yday.weekno;
+    my $tday-season = $tday.season;
+    my $tday-weekno = $tday.weekno;
+
+    # and more data for debugging
+    my $tday-ep = $tday.easter-point;
+    my $tday-cp = $tday.christmas-point;
+    my $tday-ad = $tday.advent-sunday;
+
+    my @possibles-tday = $tday.possibles;
+    my $npt = $tday.possibles.elems;
+    if $debug and $npt > 1 {
+        print "  $npt feasts today:";
+        for $tday.possibles -> $r {
+            print " '{$r.name}'"; 
+        }
+        say()
+    }
+
+    note "DEBUG: today possibles: {@possibles-tday.raku}" if $debug;
+
+    my @possibles-yday  = $yday.possibles;
+    note "DEBUG: yesterday possibles: {@possibles-yday.raku}" if $debug;
+
+    # TODO figure out how to handle the "yesterday" possibles (may have to go to the Day TWEAK)
+    my @possibles;
+    #@possibles.push(@possibles-yday.unshift) if @possibles-yday.elems; 
+    @possibles.append: @possibles-tday;
+
+    # don't forget to sort them
+    @possibles = sort { $^b.prec <=> $^a.prec }, @possibles;
+
+
+# line 189 (line 297 - 189 = 108 lines following this line
+    #======================================================
+    # all below here belongs to Date::Liturgical::Christian
+    #======================================================
+
+    # transform @possibles[0] to $!result
+    $!result = @possibles.elems ?? get-possibles(@possibles[0]) !! %(); #.shift;
+
+    if not $!result.elems {
+        $!result<name> = '';
+        $!result<prec> = 1;
+    }
+
+    $!result<season> = $tday.season // '';
+    $!result<weekno> = $tday.weekno // '';
+    # for debugging
+    $!result<ep>     = $tday-ep;
+    $!result<cp>     = $tday-cp;
+    $!result<ad>     = $tday-ad;
+
+    if $!rose {
+        my %rose-days = [ 'Advent 2' => 1, 'Lent 3' => 1 ];
+        $!result<color> = 'rose' if %rose-days{$!result<name>:exists} and %rose-days{$!result<name>};
+    }
+
+    note "DEBUG: result hash: |{$!result.raku}|" if $debug;
+#=begin comment
+    unless $!result<color>:exists {
+        if $!result<prec> > 2 && $!result<prec> != 5 {
+            # Feasts are generally white,
+            # unless marked differently.
+            # But martyrs are red, and Marian
+            # feasts *might* be blue.
+            if $!result<martyr>:exists {
+                $!result<color> = 'red';
+            }
+            elsif $!bvm-blue && ($!result<bvm>:exists) {
+                $!result<color> = 'blue';
+            }
+            else {
+                $!result<color> = 'white';
+            }
+        }
+        else {
+            # Not a feast day.
+            if $tday.season eq 'Lent' {
+                $!result<color> = 'purple';
+            }
+            elsif $tday.season eq 'Advent' {
+                if $!advent-blue {
+                    $!result<color> = 'blue';
+                }
+                else {
+                    $!result<color> = 'purple';
+                }
+            }
+            else {
+                # The great fallback:
+                $!result<color> = 'green';
+            }
+        }
+    }
+
+    # Two special cases for Christmas-based festivals which depend on
+    # the day of the week.
+
+    if $!result<prec> == 5 { # An ordinary Sunday
+        if $tday.christmas-point == $tday.advent-sunday {
+            $!result<name> = 'Advent Sunday';
+            $!result<color> = 'white';
+        }
+        elsif $tday.christmas-point == $tday.advent-sunday -7 {
+            $!result<name> = 'Christ the King';
+            $!result<color> = 'white';
+        }
+    }
+
+    note "DEBUG: result hash: |{$!result.raku}|" if $debug;
+
+    =begin comment
+    for $!result.kv -> $k, $v {
+        note "DEBUG: result key '$k' => '$v'" if $debug;
+        given $k {
+            when $k eq 'color'  { $!color  = $v }
+            when $k eq 'name'   { $!name   = $v }
+            when $k eq 'season' { $!season = $v }
+            when $k eq 'bvm'    { $!bvm    = $v }
+            when $k eq 'martyr' { $!martyr = $v }
+
+            if $debug {
+                when $k eq 'weekno' { note "DEBUG: Skipping key 'weekno'" }
+                when $k eq 'prec'   { note "DEBUG: Skipping key 'prec'" }
+                default {
+                    die "FATAL DEV: unhandled key '$k'"
+                }
+            }
+        }
+    }
+    =end comment
+    #======================================================
+    # all above here belongs to Date::Liturgical::Christian
+    #======================================================
+
+#=end comment
+    # line 297
+}
+
+method color  { self.result<color> // '' }
+method name   { self.result<name> // '' }
+method season { self.result<season> // '' }
+# for debugging
+method ep     { self.result<ep> // '' }
+method cp     { self.result<cp> // '' }
+method ad     { self.result<ad> // '' }
+
+
+=begin comment
+method prec   { self.result<prec> // '' }
+=end comment
+
+sub to-index-rel-christmas($month, $day) is export {
+    # Dates relative to Christmas are encoded to the index as 10000 + 100*m + d
+    # for simplicity.
+    # Example: m=1, d=1 => 10000 + 100*1 + 1 = 10000+100+1 = 10101
+    # Example: m=12, d=31 => 10000 + 100*12 + 1 = 10000+1200+31 = 11231
+    10000 + 100*$month + $day
+}
+
+sub from-index-rel-christmas($index --> List) is export {
+    # Dates relative to Christmas are decoded from 10000 + 100*m + d.
+    my $md = $index - 10000;
+    my $m = $md div 100;
+    my $d = $md mod 100;
+    $m, $d
+}
+
+sub get-possibles($feast --> Hash) {
+    my %result;
+    %result<name> = $feast.name;
+    %result<prec> = $feast.prec;
+    %result
+}
+
+
+

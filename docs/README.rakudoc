@@ -2,38 +2,25 @@
 
 =head1 NAME
 
-Date::Liturgical::Christian - Dates of the Christian church year
+Calendar::Christian - Dates of the Christian church year
 
 =head1 SYNOPSIS
 
 =begin code :lang<raku>
 
-use Date::Liturgical::Christian;
+use Calendar::Christian;
 
 =end code
 
 =head1 DESCRIPTION
 
-B<Date::Liturgical::Christian> is a Raku port of the Perl CPAN module
-I<DateTime::Calendar::Liturgical::Christian>. It is a child class of
-the Raku Date class.
-
-B<IMPORTANT NOTE> The Perl module is designed for the ECUSA tradition, but
-this Raku module is designed only for the United Methodist Church (UMC) tradition.
-The ECUSA tradition in this module cannot be supported until
-this author has some questions answered by the original Perl
-author or until he has access to authoritative documentation
-from the ECUSA.
-
-This module will return the name, season, week number and liturgical
-color for any day in the Gregorian calendar. It may 
-eventually support the liturgical calendars of other churches (but
-only if there is any interest shown by any users).
-At present it only knows the calendar for the United Methodist Church.
-
-If you find bugs, or if you have information on the calendar of
-another liturgical church, please file an issue or contact the author
-directly.
+B<Calendar::Christian> is a Raku module similar to
+the format of Raku module B<Holidays::US::Federal> in that it provides a list
+of the major events of the Christian calendar recognized
+by most Christian churches in the US as well as other
+parts of the world. The source of the event dates has
+been Wikipedia as well as online information from the Episcopal
+Church and the Catholic Church.
 
 =head1 OVERVIEW
 
@@ -55,88 +42,18 @@ long season of Pentecost (which some churches call Trinity, after the
 feast which falls soon after Pentecost). Then the next year begins and
 we return to Advent again.
 
-Along with all these, the church remembers the women and men who have
-made a positive difference in church history by designating feast days
-for them, usually on the anniversary of their death. For example, we
-remember St. Andrew on the 30th day of November in the Western
-churches. Every Sunday is the feast day of Jesus, and if it has no
+Every Sunday is the feast day of Jesus, and if it has no
 other name is numbered according to the season in which it falls. So,
 for example, the third Sunday in Pentecost season would be called
 Pentecost 3.
 
-Seasons are traditionally assigned colors, which are used for
-clothing and other materials. The major feasts are colored white or
-gold. Fasts are purple. Feasts for martyrs (people who died for their
-faith) are red.  Other days are green.
-
-=head1 CONSTRUCTOR
-
-=item new ([ OPTIONS ])
-
-This constructs a DateTime::Calendar::Liturgical::Christian object. It
-takes a series of named options. Possible options are:
-
-B<year> (required). The year AD in the Gregorian calendar.
-
-B<month> (required). The month number in the Gregorian calendar. 1 is January.
-
-B<day> (required). The day of the month.
-
-B<tradition> (recommended). The tradition to use. Currently only C<UMC> is known.
-
-Z< B<advent-blue>. It is currently popular in ECUSA to color Advent
-blue, instead of purple, which will happen if this option is set to 1.
-
-B<bvm-blue>. Some people mark feasts of the Blessed Virgin Mary, the
-mother of Jesus, with blue instead of white. This will happen if this
-option is set to 1. To tell the difference between this blue and
-C<advent_blue>'s blue, see the C<bvm> method, below.
-
-B<rose>. Some people color the middle Sundays of Lent and Advent
-pink, or "rose", instead of purple. This will happen if this option is
-set to 1.  >
-
-=head1 METHODS
-
-=item name
-
-Returns the name of the feast, if any.
-
-=item season
-
-Returns the season.
-
-=item color
-
-Returns the color of the day. Can be C<red>, C<green>, C<white>, or C<purple>,
-or C<blue> or C<rose> if the relevant options are set.
-
-Z< =item bvm
-
-Returns true if the current day is a feast of the Blessed Virgin
-Mary. This can be used to distinguish Advent blue from Marian blue.  >
-
-=item day
-
-Returns the day number which was used to construct the object.
-
-=item month
-
-Returns the month number which was used to construct the object.
-
-=item year
-
-Returns the year number which was used to construct the object.
-
-=head1 AUTHORS
+=head1 AUTHOR
 
 =item Tom Browder <tbrowder@acm.org>
-=item Thomas Thurman <thomas@thurman.org.uk> [Perl]
 
 =head1 COPYRIGHT AND LICENSE
 
 =item Copyright © 202-2023 Tom Browder
-=item Copyright © 2006 Thomas Thurman
 
 This library is free software; you may redistribute it or modify it
 under the Artistic License 2.0.
