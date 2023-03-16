@@ -1,4 +1,4 @@
-[![Actions Status](https://github.com/tbrowder/Calendar-Christian/workflows/test/badge.svg)](https://github.com/tbrowder/Calendar-Christian/actions)
+[![Actions Status](https://github.com/tbrowder/Calendar-Christian/actions/workflows/linux.yml/badge.svg)](https://github.com/tbrowder/Calendar-Christian/actions) [![Actions Status](https://github.com/tbrowder/Calendar-Christian/actions/workflows/macos.yml/badge.svg)](https://github.com/tbrowder/Calendar-Christian/actions) [![Actions Status](https://github.com/tbrowder/Calendar-Christian/actions/workflows/windows.yml/badge.svg)](https://github.com/tbrowder/Calendar-Christian/actions)
 
 NAME
 ====
