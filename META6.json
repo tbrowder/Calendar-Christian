@@ -17,13 +17,7 @@
   "name": "Calendar::Christian",
   "perl": "6.d",
   "provides": {
-    "Calendar::Christian": "lib/Calendar/Christian.rakumod",
-    "Calendar::sto-old::Christian": "lib/Calendar/sto-old/Christian.pm",
-    "Calendar::sto-old::Christian::Day": "lib/Calendar/sto-old/Christian/Day.rakumod",
-    "Calendar::sto-old::Christian::Feast": "lib/Calendar/sto-old/Christian/Feast.rakumod",
-    "Calendar::sto-old::Christian::Feasts": "lib/Calendar/sto-old/Christian/Feasts.rakumod",
-    "Calendar::sto-old::Christian::Funcs": "lib/Calendar/sto-old/Christian/Funcs.rakumod",
-    "Calendar::sto-old::Christian::Result": "lib/Calendar/sto-old/Christian/Result.rakumod"
+    "Calendar::Christian": "lib/Calendar/Christian.rakumod"
   },
   "resources": [
   ],
