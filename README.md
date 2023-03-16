@@ -1,4 +1,4 @@
-[![Actions Status](https://github.com/tbrowder/Date-Liturgical-Christian/workflows/test/badge.svg)](https://github.com/tbrowder/Date-Liturgical-Christian/actions)
+[![Actions Status](https://github.com/tbrowder/Calendar-Christian/workflows/test/badge.svg)](https://github.com/tbrowder/Calendar-Christian/actions)
 
 NAME
 ====
@@ -19,7 +19,7 @@ DESCRIPTION
 
 **IMPORTANT NOTE** The Perl module is designed for the ECUSA tradition, but this Raku module is designed only for the United Methodist Church (UMC) tradition. The ECUSA tradition in this module cannot be supported until this author has some questions answered by the original Perl author or until he has access to authoritative documentation from the ECUSA.
 
-This module will return the name, season, week number and liturgical color for any day in the Gregorian calendar. It may eventually support the liturgical calendars of other churches (but only if their is any interest shown by any users). At present it only knows the calendar for the United Methodist Church.
+This module will return the name, season, week number and liturgical color for any day in the Gregorian calendar. It may eventually support the liturgical calendars of other churches (but only if there is any interest shown by any users). At present it only knows the calendar for the United Methodist Church.
 
 If you find bugs, or if you have information on the calendar of another liturgical church, please file an issue or contact the author directly.
 
@@ -86,7 +86,7 @@ AUTHORS
 COPYRIGHT AND LICENSE
 =====================
 
-  * Copyright © 2021 Tom Browder
+  * Copyright © 202-2023 Tom Browder
 
   * Copyright © 2006 Thomas Thurman
 

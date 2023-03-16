@@ -1,36 +1,37 @@
 {
   "auth": "zef:tbrowder",
   "authors": [
-    "Tom Browder <tbrowder@acm.org>",
-    "Thomas Thurman <thomas@thurman.org.uk>"
+    "Tom Browder <tbrowder@acm.org>"
   ],
   "build-depends": [
   ],
   "depends": [
+    "Text::Utils",
     "Date::Utils",
+    "Date::Event",
     "Date::Christian::Advent",
     "Date::Easter"
   ],
-  "description": "calendar of the church year",
+  "description": "Calendar of the Christian church year",
   "license": "Artistic-2.0",
-  "name": "Date::Liturgical::Christian",
+  "name": "Calendar::Christian",
   "perl": "6.d",
   "provides": {
-    "Date::Liturgical::Christian": "lib/Date/Liturgical/Christian.rakumod",
-    "Date::Liturgical::Christian::Day": "lib/Date/Liturgical/Christian/Day.rakumod",
-    "Date::Liturgical::Christian::Feast": "lib/Date/Liturgical/Christian/Feast.rakumod",
-    "Date::Liturgical::Christian::Feasts": "lib/Date/Liturgical/Christian/Feasts.rakumod",
-    "Date::Liturgical::Christian::Funcs": "lib/Date/Liturgical/Christian/Funcs.rakumod",
-    "Date::Liturgical::Christian::Result": "lib/Date/Liturgical/Christian/Result.rakumod"
+    "Calendar::Christian": "lib/Calendar/Christian.rakumod",
+    "Calendar::sto-old::Christian": "lib/Calendar/sto-old/Christian.pm",
+    "Calendar::sto-old::Christian::Day": "lib/Calendar/sto-old/Christian/Day.rakumod",
+    "Calendar::sto-old::Christian::Feast": "lib/Calendar/sto-old/Christian/Feast.rakumod",
+    "Calendar::sto-old::Christian::Feasts": "lib/Calendar/sto-old/Christian/Feasts.rakumod",
+    "Calendar::sto-old::Christian::Funcs": "lib/Calendar/sto-old/Christian/Funcs.rakumod",
+    "Calendar::sto-old::Christian::Result": "lib/Calendar/sto-old/Christian/Result.rakumod"
   },
   "resources": [
   ],
-  "source-url": "https://github.com/tbrowder/Date-Liturgical-Christian.git",
+  "source-url": "https://github.com/tbrowder/Calendar-Christian.git",
   "tags": [
     "Christian calendar liturgical liturgy"
   ],
   "test-depends": [
-    "Text::Utils"
   ],
   "version": "0.0.1"
 }
